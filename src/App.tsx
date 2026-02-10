@@ -7,6 +7,8 @@ import { initializeAuthListener } from './store/slices/authThunks';
 import { LoginPage, RegisterPage, EditorPage, DesignListPage } from './pages';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { ToastProvider } from './components/Toast';
 import './App.css';
 
 // Initialize Firebase on app load
@@ -37,43 +39,47 @@ function App() {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute>
-                <RegisterPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/designs"
-            element={
-              <ProtectedRoute>
-                <DesignListPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/editor"
-            element={
-              <ProtectedRoute>
-                <EditorPage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <ErrorBoundary>
+        <ToastProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <PublicRoute>
+                    <RegisterPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/designs"
+                element={
+                  <ProtectedRoute>
+                    <DesignListPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/editor"
+                element={
+                  <ProtectedRoute>
+                    <EditorPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </ToastProvider>
+      </ErrorBoundary>
     </Provider>
   );
 }

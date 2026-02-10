@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../store/slices/authThunks';
+import { useToast } from '../components/Toast';
 import type { AppDispatch, RootState } from '../store';
 import './RegisterPage.css';
 
@@ -13,6 +14,7 @@ export const RegisterPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { showError, showSuccess } = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -20,21 +22,26 @@ export const RegisterPage = () => {
 
     // Validate password match
     if (password !== confirmPassword) {
-      setValidationError('Passwords do not match');
+      const errorMsg = 'Passwords do not match';
+      setValidationError(errorMsg);
+      showError(errorMsg);
       return;
     }
 
     // Validate password length
     if (password.length < 6) {
-      setValidationError('Password must be at least 6 characters');
+      const errorMsg = 'Password must be at least 6 characters';
+      setValidationError(errorMsg);
+      showError(errorMsg);
       return;
     }
 
     try {
       await dispatch(registerUser(email, password));
+      showSuccess('Account created successfully!');
       navigate('/editor');
     } catch (err) {
-      // Error is handled by Redux state
+      showError(error || 'Registration failed. Please try again.');
     }
   };
 

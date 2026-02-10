@@ -98,3 +98,51 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .save-dialog {
+    min-width: auto;
+    width: 90vw;
+    max-width: 400px;
+  }
+
+  .save-dialog h2 {
+    font-size: 1.25rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .save-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .save-dialog {
+    width: 95vw;
+  }
+
+  .save-dialog h2 {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group input {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .cancel-button,
+  .save-button {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}

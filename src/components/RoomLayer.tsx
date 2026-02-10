@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rect, Circle } from 'react-konva';
-import { Room } from '../models/Room';
+import type { Room } from '../models/Room';
 import { PIXELS_PER_FOOT } from './Canvas2D';
 
 interface RoomLayerProps {

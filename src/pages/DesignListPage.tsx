@@ -2,19 +2,15 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from '../store';
+import { createDesign } from '../store/slices/designSlice';
 import {
-  loadDesignsStart,
-  loadDesignsSuccess,
-  loadDesignsFailure,
-  loadDesignSuccess,
-  deleteDesignStart,
-  deleteDesignSuccess,
-  deleteDesignFailure,
-  createDesign,
-} from '../store/slices/designSlice';
-import { loadDesigns, loadDesign, deleteDesign } from '../services/storageService';
+  loadDesigns as loadDesignsThunk,
+  loadDesign as loadDesignThunk,
+  deleteDesign as deleteDesignThunk,
+} from '../store/slices/designThunks';
 import { createDesign as createDesignModel } from '../models/Design';
 import { createRoom } from '../models/Room';
+import { useToast } from '../components/Toast';
 import './DesignListPage.css';
 
 export const DesignListPage = () => {
@@ -23,6 +19,7 @@ export const DesignListPage = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { saved = [], loading, error } = useSelector((state: RootState) => state.design);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const { showSuccess, showError } = useToast();
 
   useEffect(() => {
     if (user) {
@@ -33,12 +30,12 @@ export const DesignListPage = () => {
   const handleLoadDesigns = async () => {
     if (!user) return;
 
-    dispatch(loadDesignsStart());
     try {
-      const designs = await loadDesigns(user.uid);
-      dispatch(loadDesignsSuccess(designs));
+      await dispatch(loadDesignsThunk(user.uid, (errorMsg) => {
+        showError(errorMsg);
+      }));
     } catch (err) {
-      dispatch(loadDesignsFailure((err as Error).message));
+      // Error already handled by thunk callback
     }
   };
 
@@ -67,11 +64,12 @@ export const DesignListPage = () => {
     if (!user) return;
 
     try {
-      const design = await loadDesign(user.uid, designId);
-      dispatch(loadDesignSuccess(design));
+      await dispatch(loadDesignThunk(user.uid, designId, (errorMsg) => {
+        showError(errorMsg);
+      }));
       navigate('/editor');
     } catch (err) {
-      dispatch(loadDesignsFailure((err as Error).message));
+      // Error already handled by thunk callback
     }
   };
 
@@ -82,14 +80,23 @@ export const DesignListPage = () => {
   const handleDeleteConfirm = async () => {
     if (!user || !deleteConfirmId) return;
 
-    dispatch(deleteDesignStart());
     try {
-      await deleteDesign(user.uid, deleteConfirmId);
-      dispatch(deleteDesignSuccess(deleteConfirmId));
-      setDeleteConfirmId(null);
+      await dispatch(
+        deleteDesignThunk(
+          user.uid,
+          deleteConfirmId,
+          () => {
+            showSuccess('Design deleted successfully');
+            setDeleteConfirmId(null);
+          },
+          (errorMsg) => {
+            showError(errorMsg);
+            setDeleteConfirmId(null);
+          }
+        )
+      );
     } catch (err) {
-      dispatch(deleteDesignFailure((err as Error).message));
-      setDeleteConfirmId(null);
+      // Error already handled by thunk callback
     }
   };
 

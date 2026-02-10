@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authenticateUser } from '../store/slices/authThunks';
+import { useToast } from '../components/Toast';
 import type { AppDispatch, RootState } from '../store';
 import './LoginPage.css';
 
@@ -11,14 +12,16 @@ export const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { showError, showSuccess } = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       await dispatch(authenticateUser(email, password));
+      showSuccess('Login successful!');
       navigate('/editor');
     } catch (err) {
-      // Error is handled by Redux state
+      showError(error || 'Login failed. Please try again.');
     }
   };
 

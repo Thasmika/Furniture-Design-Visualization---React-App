@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../store';
-import {
-  saveDesignStart,
-  saveDesignSuccess,
-  saveDesignFailure,
-  updateDesign,
-} from '../store/slices/designSlice';
-import { saveDesign } from '../services/storageService';
+import { saveDesign as saveDesignThunk } from '../store/slices/designThunks';
+import { useToast } from './Toast';
 import './SaveDesignDialog.css';
 
 interface SaveDesignDialogProps {
@@ -19,6 +14,7 @@ export const SaveDesignDialog = ({ onClose }: SaveDesignDialogProps) => {
   const { current, loading, error } = useSelector((state: RootState) => state.design);
   const [designName, setDesignName] = useState(current?.name || 'Untitled Design');
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const { showSuccess, showError } = useToast();
 
   const handleSave = async () => {
     if (!current) return;
@@ -30,18 +26,25 @@ export const SaveDesignDialog = ({ onClose }: SaveDesignDialogProps) => {
       updatedAt: new Date(),
     };
 
-    dispatch(saveDesignStart());
     try {
-      await saveDesign(designToSave);
-      dispatch(saveDesignSuccess(designToSave));
-      setSaveSuccess(true);
-      
-      // Auto-close after showing success message
-      setTimeout(() => {
-        onClose();
-      }, 1500);
+      await dispatch(
+        saveDesignThunk(
+          designToSave,
+          () => {
+            setSaveSuccess(true);
+            showSuccess('Design saved successfully!');
+            // Auto-close after showing success message
+            setTimeout(() => {
+              onClose();
+            }, 1500);
+          },
+          (errorMsg) => {
+            showError(errorMsg);
+          }
+        )
+      );
     } catch (err) {
-      dispatch(saveDesignFailure((err as Error).message));
+      // Error already handled by thunk callback
     }
   };
 

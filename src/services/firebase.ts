@@ -1,6 +1,6 @@
-import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
-import { getFirestore, Firestore } from 'firebase/firestore';
+import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { getAuth, type Auth } from 'firebase/auth';
+import { getFirestore, type Firestore } from 'firebase/firestore';
 
 // Firebase configuration
 // In production, these should be environment variables
@@ -12,6 +12,13 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '123456789',
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:123456789:web:abcdef123456',
 };
+
+// Debug: Log what's being loaded (remove in production)
+console.log('Firebase Config Debug:', {
+  apiKey: firebaseConfig.apiKey?.substring(0, 10) + '...',
+  authDomain: firebaseConfig.authDomain,
+  projectId: firebaseConfig.projectId,
+});
 
 // Initialize Firebase
 let app: FirebaseApp;

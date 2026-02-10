@@ -3,8 +3,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  User as FirebaseUser,
-  UserCredential,
+  type User as FirebaseUser,
+  type UserCredential,
 } from 'firebase/auth';
 import { getFirebaseAuth } from './firebase';
 import type { User } from '../store/types';
@@ -16,7 +16,7 @@ const mapFirebaseUser = (firebaseUser: FirebaseUser): User => {
   return {
     uid: firebaseUser.uid,
     email: firebaseUser.email || '',
-    displayName: firebaseUser.displayName || undefined,
+    displayName: firebaseUser.displayName || null,
   };
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Rect, Circle, Text, Group } from 'react-konva';
-import { KonvaEventObject } from 'konva/lib/Node';
-import { FurniturePiece } from '../models/FurniturePiece';
-import { Room } from '../models/Room';
+import type { KonvaEventObject } from 'konva/lib/Node';
+import type { FurniturePiece } from '../models/FurniturePiece';
+import type { Room } from '../models/Room';
 import { PIXELS_PER_FOOT } from './Canvas2D';
 import { validatePosition } from '../utils/validation';
 

@@ -4,4 +4,20 @@
   align-items: center;
   height: 100vh;
   font-family: system-ui, -apple-system, sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loading-container {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    font-size: 13px;
+    padding: 15px;
+  }
 }

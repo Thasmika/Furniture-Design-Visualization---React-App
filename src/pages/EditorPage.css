@@ -31,3 +31,32 @@
   color: #666;
   line-height: 1.6;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .placeholder-content {
+    padding: 40px 30px;
+  }
+
+  .placeholder-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .placeholder-content p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .placeholder-content {
+    padding: 30px 20px;
+  }
+
+  .placeholder-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .placeholder-content p {
+    font-size: 0.9rem;
+  }
+}

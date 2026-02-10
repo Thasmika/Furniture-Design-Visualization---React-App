@@ -13,3 +13,6 @@ export { FurnitureLibraryPanel } from './FurnitureLibraryPanel';
 export { PropertyEditorPanel } from './PropertyEditorPanel';
 export { SaveDesignDialog } from './SaveDesignDialog';
 export { AppHeader } from './AppHeader';
+export { ErrorBoundary } from './ErrorBoundary';
+export { ToastProvider, useToast } from './Toast';
+export type { Toast, ToastType } from './Toast';

@@ -60,3 +60,42 @@
   font-weight: 500;
   color: #333;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .furniture-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .furniture-button {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.75rem;
+  }
+
+  .furniture-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .furniture-library-panel {
+    padding: 0.75rem;
+  }
+
+  .furniture-library-panel h3 {
+    font-size: 1rem;
+  }
+
+  .furniture-button {
+    padding: 0.6rem;
+  }
+
+  .furniture-icon {
+    font-size: 1.25rem;
+  }
+
+  .furniture-label {
+    font-size: 0.85rem;
+  }
+}
