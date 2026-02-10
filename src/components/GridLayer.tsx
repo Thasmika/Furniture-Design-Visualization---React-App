@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'react-konva';
-import { Room } from '../models/Room';
+import type { Room } from '../models/Room';
 import { PIXELS_PER_FOOT } from './Canvas2D';
 
 interface GridLayerProps {
@@ -28,7 +28,7 @@ export const GridLayer: React.FC<GridLayerProps> = ({
     const width = dimensions.width * PIXELS_PER_FOOT;
     const height = (shape === 'square' ? dimensions.width : dimensions.length) * PIXELS_PER_FOOT;
 
-    const lines: JSX.Element[] = [];
+    const lines: React.ReactElement[] = [];
 
     // Vertical lines
     for (let i = 0; i <= dimensions.width; i++) {
@@ -67,7 +67,7 @@ export const GridLayer: React.FC<GridLayerProps> = ({
     const radius = dimensions.radius * PIXELS_PER_FOOT;
     const centerX = offsetX + radius;
     const centerY = offsetY + radius;
-    const lines: JSX.Element[] = [];
+    const lines: React.ReactElement[] = [];
 
     // Concentric circles
     for (let i = 1; i <= dimensions.radius; i++) {

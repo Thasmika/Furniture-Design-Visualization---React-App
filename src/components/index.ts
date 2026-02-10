@@ -7,3 +7,5 @@ export { Scene3D } from './Scene3D';
 export { RoomMesh } from './RoomMesh';
 export { FurnitureMesh } from './FurnitureMesh';
 export { CameraController } from './CameraController';
+export { RenderingCoordinator, useDesignStateSync } from './RenderingCoordinator';
+export { RoomConfigPanel } from './RoomConfigPanel';
