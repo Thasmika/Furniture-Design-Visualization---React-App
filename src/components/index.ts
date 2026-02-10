@@ -9,3 +9,7 @@ export { FurnitureMesh } from './FurnitureMesh';
 export { CameraController } from './CameraController';
 export { RenderingCoordinator, useDesignStateSync } from './RenderingCoordinator';
 export { RoomConfigPanel } from './RoomConfigPanel';
+export { FurnitureLibraryPanel } from './FurnitureLibraryPanel';
+export { PropertyEditorPanel } from './PropertyEditorPanel';
+export { SaveDesignDialog } from './SaveDesignDialog';
+export { AppHeader } from './AppHeader';

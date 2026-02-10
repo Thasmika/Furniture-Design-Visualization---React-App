@@ -11,9 +11,6 @@ import { createDesign } from '../models/Design';
 import { createRoom } from '../models/Room';
 import { createFurniture } from '../models/FurniturePiece';
 
-// Helper to wait for debounce
-const waitForDebounce = () => new Promise(resolve => setTimeout(resolve, 600));
-
 // Arbitraries for property-based testing
 const roomShapeArbitrary = () => fc.constantFrom('rectangular', 'square', 'circular');
 
@@ -71,12 +68,15 @@ describe('Cache Service - Property Tests', () => {
   beforeEach(() => {
     // Clear localStorage before each test
     localStorage.clear();
-    vi.clearAllTimers();
+    // Use fake timers
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
     // Clean up after each test
     clearCache();
+    // Restore real timers
+    vi.useRealTimers();
   });
 
   // Property 32: Local Cache Persistence
@@ -88,8 +88,8 @@ describe('Cache Service - Property Tests', () => {
           // Cache the design
           cacheDesign(design);
           
-          // Wait for debounce to complete
-          await waitForDebounce();
+          // Fast-forward past debounce delay
+          await vi.advanceTimersByTimeAsync(600);
           
           // Retrieve the cached design
           const cached = getCachedDesign();
@@ -111,7 +111,7 @@ describe('Cache Service - Property Tests', () => {
       ),
       { numRuns: 100 }
     );
-  }, 120000); // 2 minute timeout
+  });
 
   // Property 33: Cache Recovery Availability
   test('Property 33: Cache Recovery Availability', async () => {
@@ -122,8 +122,8 @@ describe('Cache Service - Property Tests', () => {
           // Cache the design
           cacheDesign(design);
           
-          // Wait for debounce to complete
-          await waitForDebounce();
+          // Fast-forward past debounce delay
+          await vi.advanceTimersByTimeAsync(600);
           
           // Simulate application restart by just retrieving from cache
           // (localStorage persists across "restarts" in the same test)
@@ -148,7 +148,7 @@ describe('Cache Service - Property Tests', () => {
       ),
       { numRuns: 100 }
     );
-  }, 120000); // 2 minute timeout
+  });
 
   // Additional property: Cache with last save timestamp
   test('Cache stores and retrieves last save timestamp', async () => {
@@ -160,8 +160,8 @@ describe('Cache Service - Property Tests', () => {
           // Cache the design with last save timestamp
           cacheDesign(design, lastSaveDate);
           
-          // Wait for debounce to complete
-          await waitForDebounce();
+          // Fast-forward past debounce delay
+          await vi.advanceTimersByTimeAsync(600);
           
           // Retrieve the cached design
           const cached = getCachedDesign();
@@ -175,7 +175,7 @@ describe('Cache Service - Property Tests', () => {
       ),
       { numRuns: 100 }
     );
-  }, 120000); // 2 minute timeout
+  });
 
   // Additional property: Clear cache removes all data
   test('Clear cache removes all cached data', async () => {
@@ -186,8 +186,8 @@ describe('Cache Service - Property Tests', () => {
           // Cache the design
           cacheDesign(design);
           
-          // Wait for debounce to complete
-          await waitForDebounce();
+          // Fast-forward past debounce delay
+          await vi.advanceTimersByTimeAsync(600);
           
           // Verify it's cached
           expect(getCachedDesign()).not.toBeNull();
@@ -201,7 +201,7 @@ describe('Cache Service - Property Tests', () => {
       ),
       { numRuns: 100 }
     );
-  }, 120000); // 2 minute timeout
+  });
 
   // Additional property: Debouncing prevents excessive writes
   test('Debouncing prevents multiple rapid cache writes', async () => {
@@ -215,8 +215,8 @@ describe('Cache Service - Property Tests', () => {
           // Cache multiple designs rapidly
           designs.forEach(design => cacheDesign(design));
           
-          // Wait for debounce to complete
-          await waitForDebounce();
+          // Fast-forward past debounce delay
+          await vi.advanceTimersByTimeAsync(600);
           
           // Verify only one write occurred (debouncing worked)
           // Note: There might be 2 calls if last save timestamp is also set
@@ -232,7 +232,7 @@ describe('Cache Service - Property Tests', () => {
       ),
       { numRuns: 50 }
     );
-  }, 120000); // 2 minute timeout
+  });
 
   // Additional property: Last save timestamp persistence
   test('Last save timestamp persists independently', async () => {

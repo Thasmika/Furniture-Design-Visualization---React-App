@@ -1,0 +1,112 @@
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../store';
+import {
+  saveDesignStart,
+  saveDesignSuccess,
+  saveDesignFailure,
+  updateDesign,
+} from '../store/slices/designSlice';
+import { saveDesign } from '../services/storageService';
+import './SaveDesignDialog.css';
+
+interface SaveDesignDialogProps {
+  onClose: () => void;
+}
+
+export const SaveDesignDialog = ({ onClose }: SaveDesignDialogProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { current, loading, error } = useSelector((state: RootState) => state.design);
+  const [designName, setDesignName] = useState(current?.name || 'Untitled Design');
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  const handleSave = async () => {
+    if (!current) return;
+
+    // Update design name if changed
+    const designToSave = {
+      ...current,
+      name: designName,
+      updatedAt: new Date(),
+    };
+
+    dispatch(saveDesignStart());
+    try {
+      await saveDesign(designToSave);
+      dispatch(saveDesignSuccess(designToSave));
+      setSaveSuccess(true);
+      
+      // Auto-close after showing success message
+      setTimeout(() => {
+        onClose();
+      }, 1500);
+    } catch (err) {
+      dispatch(saveDesignFailure((err as Error).message));
+    }
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDesignName(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !loading) {
+      handleSave();
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content save-dialog" onClick={(e) => e.stopPropagation()}>
+        <h2>Save Design</h2>
+        
+        {saveSuccess ? (
+          <div className="success-message">
+            ✓ Design saved successfully!
+          </div>
+        ) : (
+          <>
+            <div className="form-group">
+              <label htmlFor="design-name">Design Name</label>
+              <input
+                id="design-name"
+                type="text"
+                value={designName}
+                onChange={handleNameChange}
+                onKeyPress={handleKeyPress}
+                placeholder="Enter design name"
+                disabled={loading}
+                autoFocus
+              />
+            </div>
+
+            {error && (
+              <div className="error-message">
+                {error}
+              </div>
+            )}
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={onClose}
+                className="cancel-button"
+                disabled={loading}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSave}
+                className="save-button"
+                disabled={loading || !designName.trim()}
+              >
+                {loading ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};

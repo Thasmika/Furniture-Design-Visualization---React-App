@@ -1,0 +1,62 @@
+.furniture-library-panel {
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.furniture-library-panel h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.furniture-count {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.furniture-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.furniture-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.furniture-button:hover:not(:disabled) {
+  border-color: #4CAF50;
+  background: #f0f8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.furniture-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.furniture-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.furniture-icon {
+  font-size: 2rem;
+}
+
+.furniture-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}

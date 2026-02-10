@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { store } from './store';
 import { initializeFirebase } from './services';
+import { initializeAuthListener } from './store/slices/authThunks';
+import { LoginPage, RegisterPage, EditorPage, DesignListPage } from './pages';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { PublicRoute } from './components/PublicRoute';
 import './App.css';
 
 // Initialize Firebase on app load
@@ -11,18 +16,20 @@ function App() {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
+    // Initialize auth state listener
+    const unsubscribe = store.dispatch(initializeAuthListener());
     setInitialized(true);
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, []);
 
   if (!initialized) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
-      }}>
+      <div className="loading-container">
         <div>Loading...</div>
       </div>
     );
@@ -30,35 +37,43 @@ function App() {
 
   return (
     <Provider store={store}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        flexDirection: 'column',
-        gap: '20px'
-      }}>
-        <h1>🪑 Furniture Design Visualizer</h1>
-        <p style={{ color: '#666' }}>
-          Backend infrastructure ready. UI components coming soon.
-        </p>
-        <div style={{ 
-          background: '#f5f5f5', 
-          padding: '20px', 
-          borderRadius: '8px',
-          maxWidth: '500px'
-        }}>
-          <h3 style={{ marginTop: 0 }}>✅ Completed:</h3>
-          <ul style={{ textAlign: 'left', lineHeight: '1.8' }}>
-            <li>Core data models (Room, Furniture, Design)</li>
-            <li>Validation engine & coordinate system</li>
-            <li>Redux state management</li>
-            <li>Firebase authentication service</li>
-            <li>124 tests passing</li>
-          </ul>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/designs"
+            element={
+              <ProtectedRoute>
+                <DesignListPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/editor"
+            element={
+              <ProtectedRoute>
+                <EditorPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 }

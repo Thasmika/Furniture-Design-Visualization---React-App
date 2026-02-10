@@ -1,0 +1,216 @@
+.design-list-page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.design-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.design-list-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.new-design-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.new-design-button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  margin: 1rem 2rem;
+  padding: 1rem;
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 4px;
+  border-left: 4px solid #c62828;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.designs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.design-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.design-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.design-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.design-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+  flex: 1;
+}
+
+.design-date {
+  font-size: 0.875rem;
+  color: #999;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.design-card-info {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.design-card-info p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.design-card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.load-button,
+.delete-button {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.load-button {
+  color: #fff;
+  background-color: #2196F3;
+}
+
+.load-button:hover {
+  background-color: #1976D2;
+}
+
+.delete-button {
+  color: #fff;
+  background-color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.modal-content p {
+  margin: 0 0 1.5rem 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancel-button,
+.confirm-delete-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-button {
+  color: #333;
+  background-color: #e0e0e0;
+}
+
+.cancel-button:hover {
+  background-color: #d0d0d0;
+}
+
+.confirm-delete-button {
+  color: #fff;
+  background-color: #f44336;
+}
+
+.confirm-delete-button:hover {
+  background-color: #d32f2f;
+}

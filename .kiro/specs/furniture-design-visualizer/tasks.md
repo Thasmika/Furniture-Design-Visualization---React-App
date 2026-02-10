@@ -300,14 +300,14 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Test color pickers update room colors
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
 
-- [ ] 16. Implement UI components for furniture management
-  - [ ] 16.1 Create FurnitureLibraryPanel component
+- [x] 16. Implement UI components for furniture management
+  - [x] 16.1 Create FurnitureLibraryPanel component
     - Display furniture type buttons (chair, table, couch, bed, desk, shelf)
     - Dispatch addFurniture action on button click
     - Show furniture count in design
     - _Requirements: 2.1, 2.2_
   
-  - [ ] 16.2 Create PropertyEditorPanel component
+  - [x] 16.2 Create PropertyEditorPanel component
     - Show selected furniture properties
     - Add dimension input fields
     - Add scale slider (0.5-3.0 range)
@@ -317,19 +317,19 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Display validation errors
     - _Requirements: 2.3, 2.4, 2.6, 5.1, 5.2, 5.3, 5.4_
   
-  - [ ] 16.3 Write property tests for furniture operations
+  - [x] 16.3 Write property tests for furniture operations
     - **Property 15: Proportional Scaling with Aspect Ratio Preservation**
     - **Validates: Requirements 5.2, 5.5**
   
-  - [ ] 16.4 Write unit tests for furniture UI components
+  - [x] 16.4 Write unit tests for furniture UI components
     - Test FurnitureLibraryPanel creates furniture
     - Test PropertyEditorPanel updates properties
     - Test scale slider maintains aspect ratio
     - Test color picker updates furniture color
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 5.2, 5.4_
 
-- [ ] 17. Implement authentication UI
-  - [ ] 17.1 Create LoginPage component
+- [x] 17. Implement authentication UI
+  - [x] 17.1 Create LoginPage component
     - Add email and password input fields
     - Add login button
     - Add link to registration page
@@ -337,7 +337,7 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Display authentication errors
     - _Requirements: 8.2, 8.3, 8.4_
   
-  - [ ] 17.2 Create RegisterPage component
+  - [x] 17.2 Create RegisterPage component
     - Add email and password input fields
     - Add register button
     - Add link to login page
@@ -345,18 +345,18 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Display registration errors
     - _Requirements: 8.1_
   
-  - [ ] 17.3 Create authentication route guards
+  - [x] 17.3 Create authentication route guards
     - Redirect unauthenticated users to login page
     - Redirect authenticated users from login/register to app
     - _Requirements: 8.3, 8.4_
   
-  - [ ] 17.4 Write property test for authorization
+  - [x] 17.4 Write property test for authorization
     - **Property 26: Authorization Access Control**
     - **Property 27: Session Persistence**
     - **Validates: Requirements 8.3, 8.4, 8.6**
 
-- [ ] 18. Implement design management UI
-  - [ ] 18.1 Create DesignListPage component
+- [x] 18. Implement design management UI
+  - [x] 18.1 Create DesignListPage component
     - Display list of saved designs
     - Add "New Design" button
     - Add load, edit, delete buttons for each design
@@ -364,43 +364,43 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Dispatch loadDesign and deleteDesign actions
     - _Requirements: 6.3, 6.4, 7.3, 7.4_
   
-  - [ ] 18.2 Create SaveDesignDialog component
+  - [x] 18.2 Create SaveDesignDialog component
     - Add design name input field
     - Add save button
     - Dispatch saveDesign action
     - Show save progress and success/error messages
     - _Requirements: 6.1, 6.6, 12.1_
   
-  - [ ] 18.3 Create app header with save/load controls
+  - [x] 18.3 Create app header with save/load controls
     - Add save button (shows SaveDesignDialog)
     - Add "My Designs" button (navigates to DesignListPage)
     - Add logout button
     - Show unsaved changes indicator (isDirty)
     - _Requirements: 6.1, 6.3, 7.1, 8.5_
   
-  - [ ] 18.4 Write unit tests for design management UI
+  - [x] 18.4 Write unit tests for design management UI
     - Test DesignListPage displays designs
     - Test delete confirmation dialog
     - Test SaveDesignDialog saves design
     - Test unsaved changes indicator
     - _Requirements: 6.1, 6.3, 6.4, 7.3, 7.4_
 
-- [ ] 19. Implement undo/redo functionality
-  - [ ] 19.1 Create history middleware for Redux
+- [x] 19. Implement undo/redo functionality
+  - [x] 19.1 Create history middleware for Redux
     - Track design state changes
     - Maintain undo/redo stacks
     - Implement undo and redo actions
     - Limit history size (50 operations)
     - _Requirements: 11.4_
   
-  - [ ] 19.2 Add undo/redo UI controls
+  - [x] 19.2 Add undo/redo UI controls
     - Add undo button to toolbar
     - Add redo button to toolbar
     - Add keyboard shortcuts (Ctrl+Z, Ctrl+Y)
     - Disable buttons when stacks are empty
     - _Requirements: 11.4_
   
-  - [ ] 19.3 Write property test for undo functionality
+  - [x] 19.3 Write property test for undo functionality
     - **Property 28: Undo Reverses Changes**
     - **Validates: Requirements 11.4**
 

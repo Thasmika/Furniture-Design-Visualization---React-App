@@ -178,6 +178,12 @@ const designSlice = createSlice({
     markClean: (state) => {
       state.isDirty = false;
     },
+    
+    // History action
+    restoreDesign: (state, action: PayloadAction<Design>) => {
+      state.current = action.payload;
+      state.isDirty = true;
+    },
   },
 });
 
@@ -205,6 +211,7 @@ export const {
   updateFurnitureColor,
   clearError,
   markClean,
+  restoreDesign,
 } = designSlice.actions;
 
 // Reducer
