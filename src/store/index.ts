@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import designReducer from './slices/designSlice';
 import uiReducer from './slices/uiSlice';
 import { historyMiddleware } from './middleware/historyMiddleware';
+import { cacheMiddleware } from './middleware/cacheMiddleware';
 import type { AppState } from './types';
 
 export const store = configureStore({
@@ -18,7 +19,7 @@ export const store = configureStore({
         ignoredActions: ['design/createDesign', 'design/loadDesign', 'design/saveDesign', 'design/restoreDesign'],
         ignoredPaths: ['design.current.createdAt', 'design.current.updatedAt', 'design.saved'],
       },
-    }).concat(historyMiddleware),
+    }).concat(historyMiddleware, cacheMiddleware),
   devTools: import.meta.env.MODE !== 'production',
 });
 

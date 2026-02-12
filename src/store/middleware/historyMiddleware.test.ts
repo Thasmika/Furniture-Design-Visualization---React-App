@@ -72,7 +72,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoCount).toBe(initialFurnitureCount);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -111,7 +111,7 @@ describe('History Middleware - Property Tests', () => {
             expect(restoredFurniture?.type).toBe(furniture.type);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -153,7 +153,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoPosition.y).toBeCloseTo(initialPosition.y, 5);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -191,7 +191,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoScale).toBeCloseTo(initialScale, 5);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -229,7 +229,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoColor).toBe(initialColor);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -266,7 +266,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoRoom.dimensions.length).toBeCloseTo(initialRoom.dimensions.length, 5);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -302,7 +302,7 @@ describe('History Middleware - Property Tests', () => {
             expect(afterUndoCount).toBe(initialCount);
           }
         ),
-        { numRuns: 50 }
+        { numRuns: 1000 }
       );
     });
 
@@ -340,7 +340,7 @@ describe('History Middleware - Property Tests', () => {
             expect(restoredFurniture?.type).toBe(furnitureType);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -377,7 +377,7 @@ describe('History Middleware - Property Tests', () => {
             expect(currentFurniture?.type).toBe(type2);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 

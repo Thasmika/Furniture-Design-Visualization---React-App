@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { SaveDesignDialog } from './SaveDesignDialog';
+import { ToastProvider } from './Toast';
 import designReducer from '../store/slices/designSlice';
 import authReducer from '../store/slices/authSlice';
 import uiReducer from '../store/slices/uiSlice';
@@ -56,7 +57,9 @@ describe('SaveDesignDialog', () => {
   const renderComponent = () => {
     return render(
       <Provider store={store}>
-        <SaveDesignDialog onClose={mockOnClose} />
+        <ToastProvider>
+          <SaveDesignDialog onClose={mockOnClose} />
+        </ToastProvider>
       </Provider>
     );
   };
@@ -136,7 +139,8 @@ describe('SaveDesignDialog', () => {
       fireEvent.click(saveButton);
 
       await waitFor(() => {
-        expect(screen.getByText(/Design saved successfully/i)).toBeInTheDocument();
+        const successMessages = screen.getAllByText(/Design saved successfully/i);
+        expect(successMessages.length).toBeGreaterThan(0);
       });
     });
 
@@ -164,7 +168,8 @@ describe('SaveDesignDialog', () => {
       fireEvent.click(saveButton);
 
       await waitFor(() => {
-        expect(screen.getByText(/Network error/i)).toBeInTheDocument();
+        const errorMessages = screen.getAllByText(/Network error/i);
+        expect(errorMessages.length).toBeGreaterThan(0);
       });
     });
 

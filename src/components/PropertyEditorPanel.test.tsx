@@ -144,7 +144,7 @@ describe('PropertyEditorPanel', () => {
         </Provider>
       );
 
-      const deleteButton = screen.getByTitle('Delete furniture');
+      const deleteButton = screen.getByRole('button', { name: '🗑️' });
       expect(deleteButton).toBeInTheDocument();
     });
   });
@@ -298,7 +298,7 @@ describe('PropertyEditorPanel', () => {
         </Provider>
       );
 
-      const deleteButton = screen.getByTitle('Delete furniture');
+      const deleteButton = screen.getByRole('button', { name: '🗑️' });
       fireEvent.click(deleteButton);
 
       const state = store.getState();

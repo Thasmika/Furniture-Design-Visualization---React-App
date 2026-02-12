@@ -125,7 +125,7 @@ describe('Property 16: View Synchronization', () => {
           expect(Math.abs(pos2DRoundTrip.y - updatedFurniture!.position.y)).toBeLessThan(tolerance);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -176,7 +176,7 @@ describe('Property 16: View Synchronization', () => {
           expect(updatedFurniture!.scale).toBeLessThanOrEqual(3.0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -226,7 +226,7 @@ describe('Property 16: View Synchronization', () => {
           expect(updatedFurniture!.color).toMatch(/^#[0-9a-fA-F]{6}$/);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -303,7 +303,7 @@ describe('Property 16: View Synchronization', () => {
           expect(Math.abs(pos2DRoundTrip.y - updatedFurniture!.position.y)).toBeLessThan(tolerance);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

@@ -60,7 +60,7 @@ describe('Room Model - Property Tests', () => {
           expect(room.colorScheme).toEqual(colorScheme);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -82,7 +82,7 @@ describe('Room Model - Property Tests', () => {
           expect(result.error!.length).toBeGreaterThan(0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -98,7 +98,7 @@ describe('Room Model - Property Tests', () => {
           expect(result.error).toBeUndefined();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -114,7 +114,7 @@ describe('Room Model - Property Tests', () => {
           expect(result.error).toBeDefined();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

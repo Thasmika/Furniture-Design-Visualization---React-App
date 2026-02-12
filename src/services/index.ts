@@ -20,3 +20,9 @@ export {
   setLastSaveTimestamp,
   getLastSaveTimestamp,
 } from './cacheService';
+export {
+  checkForRecovery,
+  restoreCachedDesign,
+  discardCachedDesign,
+} from './recoveryService';
+export type { RecoveryData } from './recoveryService';

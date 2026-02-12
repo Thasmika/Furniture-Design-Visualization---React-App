@@ -5,6 +5,7 @@ import type { AppDispatch, RootState } from '../store';
 import { logout } from '../store/slices/authThunks';
 import { undo, redo, canUndo, canRedo } from '../store';
 import { SaveDesignDialog } from './SaveDesignDialog';
+import { Tooltip } from './Tooltip';
 import './AppHeader.css';
 
 export const AppHeader = () => {
@@ -98,50 +99,58 @@ export const AppHeader = () => {
         </div>
         
         <div className="header-center">
-          <button
-            type="button"
-            onClick={handleUndo}
-            className="header-button undo-button"
-            disabled={!undoEnabled}
-            title="Undo (Ctrl+Z)"
-          >
-            ↶ Undo
-          </button>
-          <button
-            type="button"
-            onClick={handleRedo}
-            className="header-button redo-button"
-            disabled={!redoEnabled}
-            title="Redo (Ctrl+Y)"
-          >
-            ↷ Redo
-          </button>
-          <button
-            type="button"
-            onClick={handleSaveClick}
-            className="header-button save-button"
-          >
-            💾 Save
-            {isDirty && <span className="unsaved-indicator">●</span>}
-          </button>
-          <button
-            type="button"
-            onClick={handleMyDesigns}
-            className="header-button designs-button"
-          >
-            📁 My Designs
-          </button>
+          <Tooltip content="Undo last action" shortcut="Ctrl+Z">
+            <button
+              type="button"
+              onClick={handleUndo}
+              className="header-button undo-button"
+              disabled={!undoEnabled}
+            >
+              ↶ Undo
+            </button>
+          </Tooltip>
+          <Tooltip content="Redo last undone action" shortcut="Ctrl+Y">
+            <button
+              type="button"
+              onClick={handleRedo}
+              className="header-button redo-button"
+              disabled={!redoEnabled}
+            >
+              ↷ Redo
+            </button>
+          </Tooltip>
+          <Tooltip content="Save current design to cloud">
+            <button
+              type="button"
+              onClick={handleSaveClick}
+              className="header-button save-button"
+            >
+              💾 Save
+              {isDirty && <span className="unsaved-indicator">●</span>}
+            </button>
+          </Tooltip>
+          <Tooltip content="View all saved designs">
+            <button
+              type="button"
+              onClick={handleMyDesigns}
+              className="header-button designs-button"
+            >
+              📁 My Designs
+            </button>
+          </Tooltip>
         </div>
 
         <div className="header-right">
           <span className="user-email">{user?.email}</span>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="header-button logout-button"
-          >
-            Logout
-          </button>
+          <Tooltip content="Sign out of your account">
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="header-button logout-button"
+            >
+              Logout
+            </button>
+          </Tooltip>
         </div>
       </header>
 

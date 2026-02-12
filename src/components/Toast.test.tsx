@@ -94,7 +94,7 @@ describe('Toast', () => {
     expect(screen.getByText('Success message')).toBeInTheDocument();
 
     act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
     });
 
     expect(screen.queryByText('Success message')).not.toBeInTheDocument();
@@ -131,7 +131,7 @@ describe('Toast', () => {
     expect(screen.getByText('Custom duration')).toBeInTheDocument();
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(screen.queryByText('Custom duration')).not.toBeInTheDocument();

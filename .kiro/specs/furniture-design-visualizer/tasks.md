@@ -429,32 +429,32 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - **Property 29: Error Messages Presence**
     - **Validates: Requirements 11.3, 12.6**
 
-- [ ] 21. Implement crash recovery
-  - [ ] 21.1 Create recovery service
+- [x] 21. Implement crash recovery
+  - [x] 21.1 Create recovery service
     - Check for cached design on app startup
     - Compare cached timestamp with last saved timestamp
     - Show recovery dialog if unsaved changes detected
     - Offer to restore or discard cached design
     - _Requirements: 12.3, 12.4_
   
-  - [ ] 21.2 Integrate cache service with Redux
+  - [x] 21.2 Integrate cache service with Redux
     - Subscribe to design state changes
     - Debounce cache writes (500ms)
     - Update cache on every design modification
     - Clear cache after successful save
     - _Requirements: 12.3_
   
-  - [ ] 21.3 Write unit tests for crash recovery
+  - [x] 21.3 Write unit tests for crash recovery
     - Test recovery dialog shows on startup with cached design
     - Test restore loads cached design
     - Test discard clears cache
     - _Requirements: 12.3, 12.4_
 
-- [ ] 22. Checkpoint - UI and error handling complete
+- [x] 22. Checkpoint - UI and error handling complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 23. Implement main application layout
-  - [ ] 23.1 Create AppLayout component
+- [x] 23. Implement main application layout
+  - [x] 23.1 Create AppLayout component
     - Set up responsive layout with header, sidebar, main content
     - Add view mode selector (2D, 3D, split view)
     - Integrate RoomConfigPanel in sidebar
@@ -463,99 +463,99 @@ The implementation uses React with TypeScript for type safety, Redux for state m
     - Add collapsible sidebar
     - _Requirements: 11.1_
   
-  - [ ] 23.2 Create ViewContainer component
+  - [x] 23.2 Create ViewContainer component
     - Render Canvas2D for 2D view mode
     - Render Scene3D for 3D view mode
     - Render both side-by-side for split view mode
     - Handle view mode switching
     - _Requirements: 3.1, 4.1_
   
-  - [ ] 23.3 Write unit tests for layout components
+  - [x] 23.3 Write unit tests for layout components
     - Test AppLayout renders all panels
     - Test ViewContainer switches between view modes
     - Test sidebar collapse/expand
     - _Requirements: 11.1_
 
-- [ ] 24. Implement routing and navigation
-  - [ ] 24.1 Set up React Router
+- [x] 24. Implement routing and navigation
+  - [x] 24.1 Set up React Router
     - Configure routes: /login, /register, /designs, /editor
     - Implement route guards for authentication
     - Add navigation between pages
     - _Requirements: 8.3, 8.4_
   
-  - [ ] 24.2 Create App component
+  - [x] 24.2 Create App component
     - Set up Router with routes
     - Add authentication state listener
     - Initialize Firebase on mount
     - Render ErrorBoundary
     - _Requirements: 8.6_
 
-- [ ] 25. Add tooltips and help text
-  - [ ] 25.1 Create Tooltip component
+- [x] 25. Add tooltips and help text
+  - [x] 25.1 Create Tooltip component
     - Display on hover for UI controls
     - Add tooltips to all major features
     - Include keyboard shortcuts in tooltips
     - _Requirements: 11.2_
   
-  - [ ] 25.2 Write unit tests for tooltips
+  - [x] 25.2 Write unit tests for tooltips
     - Test tooltips appear on hover
     - Test tooltip content is descriptive
     - _Requirements: 11.2_
 
-- [ ] 26. Performance optimization
-  - [ ] 26.1 Optimize 2D rendering
+- [x] 26. Performance optimization
+  - [x] 26.1 Optimize 2D rendering
     - Implement canvas layer caching
     - Use Konva's hitGraph optimization
     - Debounce drag events
     - _Requirements: 9.1_
   
-  - [ ] 26.2 Optimize 3D rendering
+  - [x] 26.2 Optimize 3D rendering
     - Use instanced meshes for repeated furniture
     - Implement frustum culling
     - Reduce polygon count for furniture models
     - Enable anti-aliasing
     - _Requirements: 9.2, 9.5_
   
-  - [ ] 26.3 Optimize state updates
+  - [x] 26.3 Optimize state updates
     - Use Redux Toolkit's createSelector for memoization
     - Implement React.memo for expensive components
     - Use useCallback and useMemo hooks
     - _Requirements: 9.3_
 
-- [ ] 27. Cross-platform testing and compatibility
-  - [ ] 27.1 Set up Electron for desktop packaging
+- [x] 27. Cross-platform testing and compatibility
+  - [x] 27.1 Set up Electron for desktop packaging
     - Configure Electron main process
     - Configure Electron renderer process
     - Set up build scripts for Windows and macOS
     - _Requirements: 10.1, 10.2_
   
-  - [ ] 27.2 Test on Windows
+  - [x] 27.2 Test on Windows
     - Test all features on Windows 10/11
     - Verify UI consistency
     - Test file paths and platform-specific APIs
     - _Requirements: 10.1, 10.3, 10.4_
   
-  - [ ] 27.3 Test on macOS
+  - [x] 27.3 Test on macOS
     - Test all features on macOS Catalina and later
     - Verify UI consistency
     - Test file paths and platform-specific APIs
     - _Requirements: 10.2, 10.3, 10.4_
 
-- [ ] 28. Final integration and end-to-end testing
-  - [ ] 28.1 Write E2E tests for critical workflows
+- [x] 28. Final integration and end-to-end testing
+  - [x] 28.1 Write E2E tests for critical workflows
     - Test complete user journey: register → create design → save → load → edit → delete
     - Test authentication flow
     - Test design persistence
     - Test 2D and 3D visualization
     - _Requirements: All_
   
-  - [ ] 28.2 Run all property tests with increased iterations
+  - [x] 28.2 Run all property tests with increased iterations
     - Run all 34 property tests with 1000 iterations
     - Fix any failures discovered
     - Document any edge cases found
     - _Requirements: All_
 
-- [ ] 29. Final checkpoint - Complete application
+- [x] 29. Final checkpoint - Complete application
   - Ensure all tests pass, ask the user if questions arise.
   - Verify all 12 requirements are implemented
   - Verify all 34 correctness properties are tested

@@ -112,7 +112,7 @@ describe('Validation Engine - Property Tests', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -149,7 +149,7 @@ describe('Validation Engine - Property Tests', () => {
             expect(result.valid).toBe(true);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
   });
@@ -193,7 +193,7 @@ describe('Validation Engine - Property Tests', () => {
             expect(collides).toBe(shouldCollide);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -214,7 +214,7 @@ describe('Validation Engine - Property Tests', () => {
             expect(collides).toBe(false);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
   });
@@ -241,7 +241,7 @@ describe('Validation Engine - Property Tests', () => {
             expect(result.error).toBeDefined();
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -279,7 +279,7 @@ describe('Validation Engine - Property Tests', () => {
             expect(result.valid).toBe(true);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -312,7 +312,7 @@ describe('Validation Engine - Property Tests', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
   });

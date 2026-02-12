@@ -15,4 +15,8 @@ export { SaveDesignDialog } from './SaveDesignDialog';
 export { AppHeader } from './AppHeader';
 export { ErrorBoundary } from './ErrorBoundary';
 export { ToastProvider, useToast } from './Toast';
+export { RecoveryDialog } from './RecoveryDialog';
 export type { Toast, ToastType } from './Toast';
+export { AppLayout } from './AppLayout';
+export { ViewContainer } from './ViewContainer';
+export { Tooltip } from './Tooltip';

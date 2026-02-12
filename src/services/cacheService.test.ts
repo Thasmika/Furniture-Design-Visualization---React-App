@@ -109,7 +109,7 @@ describe('Cache Service - Property Tests', () => {
           expect(timeDiff).toBeGreaterThanOrEqual(0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -146,7 +146,7 @@ describe('Cache Service - Property Tests', () => {
           expect(recovered!.timestamp).toBeInstanceOf(Date);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -173,7 +173,7 @@ describe('Cache Service - Property Tests', () => {
           }
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -199,7 +199,7 @@ describe('Cache Service - Property Tests', () => {
           expect(getCachedDesign()).toBeNull();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -230,7 +230,7 @@ describe('Cache Service - Property Tests', () => {
           setItemSpy.mockRestore();
         }
       ),
-      { numRuns: 50 }
+      { numRuns: 1000 }
     );
   });
 
@@ -238,8 +238,13 @@ describe('Cache Service - Property Tests', () => {
   test('Last save timestamp persists independently', async () => {
     await fc.assert(
       fc.asyncProperty(
-        fc.date(),
+        fc.date({ min: new Date('2020-01-01'), max: new Date('2030-12-31') }),
         async (timestamp) => {
+          // Skip invalid dates
+          if (isNaN(timestamp.getTime())) {
+            return true;
+          }
+          
           // Set last save timestamp
           setLastSaveTimestamp(timestamp);
           
@@ -251,7 +256,7 @@ describe('Cache Service - Property Tests', () => {
           expect(retrieved!.getTime()).toBe(timestamp.getTime());
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

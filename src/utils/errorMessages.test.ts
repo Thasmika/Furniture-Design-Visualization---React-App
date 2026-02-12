@@ -76,7 +76,7 @@ describe('Property 29: Error Messages Presence', () => {
           }
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -117,7 +117,7 @@ describe('Property 29: Error Messages Presence', () => {
           expect(errorMessage.toLowerCase()).toContain(testCase.operation);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -139,7 +139,7 @@ describe('Property 29: Error Messages Presence', () => {
           expect(typeof errorMessage).toBe('string');
         }
       ),
-      { numRuns: 50 }
+      { numRuns: 1000 }
     );
   });
 
@@ -156,7 +156,7 @@ describe('Property 29: Error Messages Presence', () => {
           expect(error.message.length).toBeGreaterThan(0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -191,7 +191,7 @@ describe('Property 29: Error Messages Presence', () => {
           }
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

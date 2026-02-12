@@ -58,7 +58,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(furniture.scale).toBe(1.0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -80,7 +80,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(updated.position.rotation).toBe(newPosition.rotation);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -99,7 +99,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(updated.dimensions).toEqual(furniture.dimensions);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -118,7 +118,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(updated.dimensions).toEqual(furniture.dimensions);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -158,7 +158,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(result3.error).toBeDefined();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -176,7 +176,7 @@ describe('FurniturePiece Model - Property Tests', () => {
           expect(result.error).toBeUndefined();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

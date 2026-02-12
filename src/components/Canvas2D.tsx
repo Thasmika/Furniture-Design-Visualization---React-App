@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { getCurrentDesign, getSelectedFurnitureId, getShowGrid } from '../store/selectors';
@@ -16,7 +16,7 @@ interface Canvas2DProps {
   height?: number;
 }
 
-export const Canvas2D: React.FC<Canvas2DProps> = ({ 
+export const Canvas2D: React.FC<Canvas2DProps> = React.memo(({ 
   width = 800, 
   height = 600 
 }) => {
@@ -24,6 +24,15 @@ export const Canvas2D: React.FC<Canvas2DProps> = ({
   const design = useAppSelector(getCurrentDesign);
   const selectedFurnitureId = useAppSelector(getSelectedFurnitureId);
   const showGrid = useAppSelector(getShowGrid);
+
+  // Memoize callbacks to prevent unnecessary re-renders
+  const handleFurnitureSelect = useCallback((id: string) => {
+    dispatch(selectFurniture(id));
+  }, [dispatch]);
+
+  const handleFurnitureMove = useCallback((id: string, x: number, y: number) => {
+    dispatch(updateFurniturePosition({ id, position: { x, y } }));
+  }, [dispatch]);
 
   if (!design || !design.room) {
     return (
@@ -41,19 +50,19 @@ export const Canvas2D: React.FC<Canvas2DProps> = ({
     );
   }
 
-  const handleFurnitureSelect = (id: string) => {
-    dispatch(selectFurniture(id));
-  };
-
-  const handleFurnitureMove = (id: string, x: number, y: number) => {
-    dispatch(updateFurniturePosition({ id, position: { x, y } }));
-  };
-
   return (
-    <Stage width={width} height={height}>
-      <Layer>
+    <Stage 
+      width={width} 
+      height={height}
+      // Enable Konva's hitGraph optimization for better performance
+      listening={true}
+    >
+      {/* Separate static and dynamic layers for better caching */}
+      <Layer listening={false}>
         <RoomLayer room={design.room} />
         <GridLayer room={design.room} visible={showGrid} />
+      </Layer>
+      <Layer>
         <FurnitureLayer
           furniture={design.furniture}
           room={design.room}
@@ -64,4 +73,4 @@ export const Canvas2D: React.FC<Canvas2DProps> = ({
       </Layer>
     </Stage>
   );
-};
+});

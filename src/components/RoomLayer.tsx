@@ -9,7 +9,7 @@ interface RoomLayerProps {
   offsetY?: number;
 }
 
-export const RoomLayer: React.FC<RoomLayerProps> = ({ 
+export const RoomLayer: React.FC<RoomLayerProps> = React.memo(({ 
   room, 
   offsetX = 50, 
   offsetY = 50 
@@ -32,6 +32,8 @@ export const RoomLayer: React.FC<RoomLayerProps> = ({
           fill={colorScheme.floor}
           stroke="#000000"
           strokeWidth={2}
+          listening={false}
+          perfectDrawEnabled={false}
         />
       </>
     );
@@ -51,10 +53,12 @@ export const RoomLayer: React.FC<RoomLayerProps> = ({
           fill={colorScheme.floor}
           stroke="#000000"
           strokeWidth={2}
+          listening={false}
+          perfectDrawEnabled={false}
         />
       </>
     );
   }
 
   return null;
-};
+});

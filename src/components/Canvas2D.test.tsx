@@ -121,7 +121,7 @@ describe('Canvas2D Property Tests', () => {
           });
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -161,7 +161,7 @@ describe('Canvas2D Property Tests', () => {
           expect(piece2.position.y).toBe(position2.y);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -196,7 +196,7 @@ describe('Canvas2D Property Tests', () => {
           expect(effectiveHeight).toBeCloseTo(originalHeight * scale, 5);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

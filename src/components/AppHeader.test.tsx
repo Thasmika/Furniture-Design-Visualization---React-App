@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { AppHeader } from './AppHeader';
+import { ToastProvider } from './Toast';
 import designReducer from '../store/slices/designSlice';
 import authReducer from '../store/slices/authSlice';
 import uiReducer from '../store/slices/uiSlice';
@@ -67,7 +68,9 @@ describe('AppHeader', () => {
     return render(
       <Provider store={store}>
         <BrowserRouter>
-          <AppHeader />
+          <ToastProvider>
+            <AppHeader />
+          </ToastProvider>
         </BrowserRouter>
       </Provider>
     );
@@ -186,8 +189,10 @@ describe('AppHeader', () => {
       const logoutButton = screen.getByRole('button', { name: /Logout/i });
       fireEvent.click(logoutButton);
 
-      // Should navigate to login page
-      expect(mockNavigate).toHaveBeenCalledWith('/login');
+      // Should navigate to login page after async logout
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/login');
+      });
     });
   });
 });

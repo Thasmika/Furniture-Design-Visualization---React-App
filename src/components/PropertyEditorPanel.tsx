@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
   removeFurniture,
@@ -7,16 +7,14 @@ import {
 } from '../store/slices/designSlice';
 import { selectFurniture } from '../store/slices/uiSlice';
 import { validateFurnitureDimensions } from '../models/FurniturePiece';
+import { getSelectedFurniture } from '../store/selectors';
+import { Tooltip } from './Tooltip';
 import './PropertyEditorPanel.css';
 
-export const PropertyEditorPanel: React.FC = () => {
+export const PropertyEditorPanel: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const selectedFurnitureId = useAppSelector((state) => state.ui.selectedFurnitureId);
-  const currentDesign = useAppSelector((state) => state.design.current);
-
-  const selectedFurniture = currentDesign?.furniture.find(
-    (f) => f.id === selectedFurnitureId
-  );
+  const selectedFurniture = useAppSelector(getSelectedFurniture);
 
   const [scale, setScale] = useState(1.0);
   const [color, setColor] = useState('#8B4513');
@@ -31,7 +29,17 @@ export const PropertyEditorPanel: React.FC = () => {
     }
   }, [selectedFurniture]);
 
-  const handleScaleChange = (newScale: number) => {
+  // Memoize scaled dimensions calculation
+  const scaledDimensions = useMemo(() => {
+    if (!selectedFurniture) return null;
+    return {
+      width: selectedFurniture.dimensions.width * scale,
+      depth: selectedFurniture.dimensions.depth * scale,
+      height: selectedFurniture.dimensions.height * scale,
+    };
+  }, [selectedFurniture, scale]);
+
+  const handleScaleChange = useCallback((newScale: number) => {
     setScale(newScale);
     
     if (newScale < 0.5 || newScale > 3.0) {
@@ -39,15 +47,15 @@ export const PropertyEditorPanel: React.FC = () => {
       return;
     }
 
-    if (selectedFurnitureId) {
+    if (selectedFurnitureId && selectedFurniture) {
       // Validate scaled dimensions
-      const scaledDimensions = {
-        width: selectedFurniture!.dimensions.width * newScale,
-        depth: selectedFurniture!.dimensions.depth * newScale,
-        height: selectedFurniture!.dimensions.height * newScale,
+      const scaledDims = {
+        width: selectedFurniture.dimensions.width * newScale,
+        depth: selectedFurniture.dimensions.depth * newScale,
+        height: selectedFurniture.dimensions.height * newScale,
       };
 
-      const validation = validateFurnitureDimensions(scaledDimensions);
+      const validation = validateFurnitureDimensions(scaledDims);
       if (!validation.valid) {
         setValidationError(validation.error || 'Invalid dimensions');
         return;
@@ -56,23 +64,23 @@ export const PropertyEditorPanel: React.FC = () => {
       setValidationError(null);
       dispatch(updateFurnitureScale({ id: selectedFurnitureId, scale: newScale }));
     }
-  };
+  }, [selectedFurnitureId, selectedFurniture, dispatch]);
 
-  const handleColorChange = (newColor: string) => {
+  const handleColorChange = useCallback((newColor: string) => {
     setColor(newColor);
     if (selectedFurnitureId) {
       dispatch(updateFurnitureColor({ id: selectedFurnitureId, color: newColor }));
     }
-  };
+  }, [selectedFurnitureId, dispatch]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     if (selectedFurnitureId) {
       dispatch(removeFurniture(selectedFurnitureId));
       dispatch(selectFurniture(null));
     }
-  };
+  }, [selectedFurnitureId, dispatch]);
 
-  if (!selectedFurniture) {
+  if (!selectedFurniture || !scaledDimensions) {
     return (
       <div className="property-editor-panel">
         <h3>Properties</h3>
@@ -83,12 +91,6 @@ export const PropertyEditorPanel: React.FC = () => {
     );
   }
 
-  const scaledDimensions = {
-    width: selectedFurniture.dimensions.width * scale,
-    depth: selectedFurniture.dimensions.depth * scale,
-    height: selectedFurniture.dimensions.height * scale,
-  };
-
   return (
     <div className="property-editor-panel">
       <h3>Properties</h3>
@@ -96,13 +98,15 @@ export const PropertyEditorPanel: React.FC = () => {
       <div className="property-section">
         <div className="property-header">
           <span className="furniture-type">{selectedFurniture.type}</span>
-          <button
-            className="delete-button"
-            onClick={handleDelete}
-            title="Delete furniture"
-          >
-            🗑️
-          </button>
+          <Tooltip content="Remove furniture from design">
+            <button
+              type="button"
+              className="delete-button"
+              onClick={handleDelete}
+            >
+              🗑️
+            </button>
+          </Tooltip>
         </div>
       </div>
 
@@ -126,7 +130,9 @@ export const PropertyEditorPanel: React.FC = () => {
 
       <div className="property-section">
         <label className="property-label" htmlFor="scale-slider">
-          Scale: {scale.toFixed(2)}x
+          <Tooltip content="Adjust furniture size proportionally (0.5x to 3.0x)">
+            <span>Scale: {scale.toFixed(2)}x</span>
+          </Tooltip>
         </label>
         <input
           id="scale-slider"
@@ -146,7 +152,9 @@ export const PropertyEditorPanel: React.FC = () => {
 
       <div className="property-section">
         <label className="property-label" htmlFor="color-picker">
-          Color
+          <Tooltip content="Change furniture color">
+            <span>Color</span>
+          </Tooltip>
         </label>
         <div className="color-picker-container">
           <input
@@ -171,4 +179,4 @@ export const PropertyEditorPanel: React.FC = () => {
       )}
     </div>
   );
-};
+});

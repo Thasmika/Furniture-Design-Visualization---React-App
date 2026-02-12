@@ -173,7 +173,7 @@ describe('Storage Service - Property Tests', () => {
           expect(loaded.updatedAt.getTime()).toBe(design.updatedAt.getTime());
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -189,7 +189,7 @@ describe('Storage Service - Property Tests', () => {
           expect(loaded.userId).toBe(design.userId);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -218,7 +218,7 @@ describe('Storage Service - Property Tests', () => {
           });
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -248,7 +248,7 @@ describe('Storage Service - Property Tests', () => {
           expect(uniqueIds.size).toBe(ids.length);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -274,7 +274,7 @@ describe('Storage Service - Property Tests', () => {
           expect(loaded.name).toBe(newName);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -299,7 +299,7 @@ describe('Storage Service - Property Tests', () => {
             .rejects.toThrow(/not found/i);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });
@@ -331,7 +331,7 @@ describe('Storage Service - Error Handling Property Tests', () => {
           expect(JSON.stringify(design)).toBe(JSON.stringify(originalDesign));
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -356,7 +356,7 @@ describe('Storage Service - Error Handling Property Tests', () => {
           expect(loaded.id).toBe(design.id);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -391,7 +391,7 @@ describe('Storage Service - Error Handling Property Tests', () => {
           await expect(saveDesign(design)).rejects.toThrow(/verification failed/i);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
@@ -431,7 +431,7 @@ describe('Storage Service - Error Handling Property Tests', () => {
             expect(attemptCount).toBe(3);
           }
         ),
-        { numRuns: 10 } // Reduced runs to avoid timeout
+        { numRuns: 1000 } // Reduced runs to avoid timeout
       );
     } finally {
       vi.useRealTimers();
@@ -474,7 +474,7 @@ describe('Storage Service - Error Handling Property Tests', () => {
             expect(attemptCount).toBe(3);
           }
         ),
-        { numRuns: 10 } // Reduced runs to avoid timeout
+        { numRuns: 1000 } // Reduced runs to avoid timeout
       );
     } finally {
       vi.useRealTimers();

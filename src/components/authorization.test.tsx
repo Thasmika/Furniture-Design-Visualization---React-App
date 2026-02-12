@@ -73,7 +73,7 @@ describe('Authorization Property Tests', () => {
    * while unauthenticated users should be denied access with appropriate error messages.
    */
   describe('Property 26: Authorization Access Control', () => {
-    it('authenticated users can access protected routes', () => {
+    it('authenticated users can access protected routes', { timeout: 30000 }, () => {
       fc.assert(
         fc.property(userArbitrary(), (user) => {
           const { container } = renderWithRouterAndStore(
@@ -99,7 +99,7 @@ describe('Authorization Property Tests', () => {
       );
     });
 
-    it('unauthenticated users are redirected to login from protected routes', () => {
+    it('unauthenticated users are redirected to login from protected routes', { timeout: 30000 }, () => {
       fc.assert(
         fc.property(fc.constant(null), (user) => {
           const { container } = renderWithRouterAndStore(
@@ -125,7 +125,7 @@ describe('Authorization Property Tests', () => {
       );
     });
 
-    it('authenticated users are redirected from public routes to editor', () => {
+    it('authenticated users are redirected from public routes to editor', { timeout: 30000 }, () => {
       fc.assert(
         fc.property(userArbitrary(), (user) => {
           const { container } = renderWithRouterAndStore(
@@ -152,7 +152,7 @@ describe('Authorization Property Tests', () => {
       );
     });
 
-    it('unauthenticated users can access public routes', () => {
+    it('unauthenticated users can access public routes', { timeout: 30000 }, () => {
       fc.assert(
         fc.property(fc.constant(null), (user) => {
           const { container } = renderWithRouterAndStore(
@@ -208,7 +208,7 @@ describe('Authorization Property Tests', () => {
           expect(newState.auth.user).toEqual(user);
           expect(newState.auth.user?.uid).toBe(user.uid);
         }),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -229,7 +229,7 @@ describe('Authorization Property Tests', () => {
           // User should still be null after "restart"
           expect(newState.auth.user).toBeNull();
         }),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -259,7 +259,7 @@ describe('Authorization Property Tests', () => {
             }
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
   });

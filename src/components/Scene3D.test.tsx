@@ -95,7 +95,7 @@ const furnitureListArbitrary = () =>
 
 describe('Scene3D Property Tests', () => {
   // Feature: furniture-design-visualizer, Property 11: 3D Rendering Completeness
-  it('Property 11: renders all furniture pieces in the design', () => {
+  it('Property 11: renders all furniture pieces in the design', { timeout: 30000 }, () => {
     fc.assert(
       fc.property(
         roomArbitrary(),
@@ -186,12 +186,12 @@ describe('Scene3D Property Tests', () => {
           expect(distance).toBeGreaterThan(0);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 
   // Feature: furniture-design-visualizer, Property 14: Color Application in 3D
-  it('Property 14: room colors are correctly applied in 3D scene', () => {
+  it('Property 14: room colors are correctly applied in 3D scene', { timeout: 30000 }, () => {
     fc.assert(
       fc.property(roomArbitrary(), (roomData) => {
         const room = createRoom(

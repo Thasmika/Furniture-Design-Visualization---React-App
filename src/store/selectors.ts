@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from './index';
 import type { Design } from '../models/Design';
 import type { Room } from '../models/Room';
@@ -10,27 +11,76 @@ export const getCurrentUser = (state: RootState): User | null => state.auth.user
 export const getAuthLoading = (state: RootState): boolean => state.auth.loading;
 export const getAuthError = (state: RootState): string | null => state.auth.error;
 
-// Design selectors
-export const getCurrentDesign = (state: RootState): Design | null => state.design.current;
-export const getSelectedFurniture = (state: RootState): FurniturePiece | null => {
-  const selectedId = state.ui.selectedFurnitureId;
-  if (!selectedId || !state.design.current) return null;
-  return state.design.current.furniture.find((f: FurniturePiece) => f.id === selectedId) || null;
-};
-export const getFurnitureList = (state: RootState): FurniturePiece[] => 
-  state.design.current?.furniture || [];
-export const getRoom = (state: RootState): Room | null => 
-  state.design.current?.room || null;
-export const isDirty = (state: RootState): boolean => state.design.isDirty;
-export const getSavedDesigns = (state: RootState): Design[] => state.design.saved;
-export const getDesignLoading = (state: RootState): boolean => state.design.loading;
-export const getDesignError = (state: RootState): string | null => state.design.error;
+// Design selectors - base selectors
+const selectDesignState = (state: RootState) => state.design;
+const selectUIState = (state: RootState) => state.ui;
 
-// UI selectors
-export const getSelectedFurnitureId = (state: RootState): string | null => 
-  state.ui.selectedFurnitureId;
-export const getActiveView = (state: RootState): '2d' | '3d' | 'split' => 
-  state.ui.activeView;
-export const getShowGrid = (state: RootState): boolean => state.ui.showGrid;
-export const getSnapToGrid = (state: RootState): boolean => state.ui.snapToGrid;
-export const getSidebarOpen = (state: RootState): boolean => state.ui.sidebarOpen;
+// Memoized design selectors
+export const getCurrentDesign = createSelector(
+  [selectDesignState],
+  (design) => design.current
+);
+
+export const getFurnitureList = createSelector(
+  [getCurrentDesign],
+  (design) => design?.furniture || []
+);
+
+export const getRoom = createSelector(
+  [getCurrentDesign],
+  (design) => design?.room || null
+);
+
+export const getSelectedFurnitureId = createSelector(
+  [selectUIState],
+  (ui) => ui.selectedFurnitureId
+);
+
+export const getSelectedFurniture = createSelector(
+  [getFurnitureList, getSelectedFurnitureId],
+  (furniture, selectedId) => {
+    if (!selectedId) return null;
+    return furniture.find((f: FurniturePiece) => f.id === selectedId) || null;
+  }
+);
+
+export const isDirty = createSelector(
+  [selectDesignState],
+  (design) => design.isDirty
+);
+
+export const getSavedDesigns = createSelector(
+  [selectDesignState],
+  (design) => design.saved
+);
+
+export const getDesignLoading = createSelector(
+  [selectDesignState],
+  (design) => design.loading
+);
+
+export const getDesignError = createSelector(
+  [selectDesignState],
+  (design) => design.error
+);
+
+// UI selectors - memoized
+export const getActiveView = createSelector(
+  [selectUIState],
+  (ui) => ui.activeView
+);
+
+export const getShowGrid = createSelector(
+  [selectUIState],
+  (ui) => ui.showGrid
+);
+
+export const getSnapToGrid = createSelector(
+  [selectUIState],
+  (ui) => ui.snapToGrid
+);
+
+export const getSidebarOpen = createSelector(
+  [selectUIState],
+  (ui) => ui.sidebarOpen
+);

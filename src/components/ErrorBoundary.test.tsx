@@ -109,24 +109,30 @@ describe('ErrorBoundary', () => {
   });
 
   it('resets error state when try again button is clicked', () => {
+    let shouldThrow = true;
+    
+    const ThrowErrorDynamic = () => {
+      if (shouldThrow) {
+        throw new Error('Test error');
+      }
+      return <div>No error</div>;
+    };
+
     const { rerender } = render(
       <ErrorBoundary>
-        <ThrowError shouldThrow={true} />
+        <ThrowErrorDynamic />
       </ErrorBoundary>
     );
 
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
 
+    // Change the error condition before clicking try again
+    shouldThrow = false;
+
     const tryAgainButton = screen.getByText('Try Again');
     fireEvent.click(tryAgainButton);
 
-    // After reset, re-render with no error
-    rerender(
-      <ErrorBoundary>
-        <ThrowError shouldThrow={false} />
-      </ErrorBoundary>
-    );
-
+    // After reset, the component should render without error
     expect(screen.getByText('No error')).toBeInTheDocument();
   });
 });

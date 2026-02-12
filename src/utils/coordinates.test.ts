@@ -297,7 +297,7 @@ describe('Coordinate Conversion - Property Tests', () => {
           expect(Math.abs(result2D.y - original2D.y)).toBeLessThan(tolerance);
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 1000 }
     );
   });
 });

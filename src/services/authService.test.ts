@@ -47,6 +47,7 @@ describe('Authentication Service', () => {
       expect(result).toEqual({
         uid: 'test-uid-123',
         email: 'test@example.com',
+        displayName: null,
       });
       expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
         { name: 'mock-auth' },

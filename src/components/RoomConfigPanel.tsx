@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRoom } from '../store/slices/designSlice';
 import { createRoom, validateDimensions, validateColor } from '../models/Room';
 import type { Room } from '../models/Room';
 import type { RootState } from '../store';
+import { getCurrentDesign } from '../store/selectors';
+import { Tooltip } from './Tooltip';
 import './RoomConfigPanel.css';
 
-export function RoomConfigPanel() {
+export const RoomConfigPanel = React.memo(() => {
   const dispatch = useDispatch();
-  const currentDesign = useSelector((state: RootState) => state.design.current);
-  const room = currentDesign?.room;
+  const currentDesign = useSelector(getCurrentDesign);
+  const room = useMemo(() => currentDesign?.room, [currentDesign?.room]);
 
   // Local state for form inputs
   const [shape, setShape] = useState<Room['shape']>(room?.shape || 'rectangular');
@@ -43,55 +45,7 @@ export function RoomConfigPanel() {
     }
   }, [room]);
 
-  const handleShapeChange = (newShape: Room['shape']) => {
-    setShape(newShape);
-    // Auto-set length equal to width for square rooms
-    if (newShape === 'square') {
-      setLength(width);
-    }
-    validateAndUpdate(newShape, width, length, radius, unit, wallColor, floorColor, ceilingColor);
-  };
-
-  const handleWidthChange = (value: string) => {
-    setWidth(value);
-    // Auto-update length for square rooms
-    if (shape === 'square') {
-      setLength(value);
-    }
-    validateAndUpdate(shape, value, shape === 'square' ? value : length, radius, unit, wallColor, floorColor, ceilingColor);
-  };
-
-  const handleLengthChange = (value: string) => {
-    setLength(value);
-    validateAndUpdate(shape, width, value, radius, unit, wallColor, floorColor, ceilingColor);
-  };
-
-  const handleRadiusChange = (value: string) => {
-    setRadius(value);
-    validateAndUpdate(shape, width, length, value, unit, wallColor, floorColor, ceilingColor);
-  };
-
-  const handleUnitChange = (newUnit: Room['unit']) => {
-    setUnit(newUnit);
-    validateAndUpdate(shape, width, length, radius, newUnit, wallColor, floorColor, ceilingColor);
-  };
-
-  const handleWallColorChange = (color: string) => {
-    setWallColor(color);
-    validateAndUpdate(shape, width, length, radius, unit, color, floorColor, ceilingColor);
-  };
-
-  const handleFloorColorChange = (color: string) => {
-    setFloorColor(color);
-    validateAndUpdate(shape, width, length, radius, unit, wallColor, color, ceilingColor);
-  };
-
-  const handleCeilingColorChange = (color: string) => {
-    setCeilingColor(color);
-    validateAndUpdate(shape, width, length, radius, unit, wallColor, floorColor, color);
-  };
-
-  const validateAndUpdate = (
+  const validateAndUpdate = useCallback((
     shapeVal: Room['shape'],
     widthVal: string,
     lengthVal: string,
@@ -156,7 +110,55 @@ export function RoomConfigPanel() {
         // Error already captured in validation
       }
     }
-  };
+  }, [dispatch]);
+
+  const handleShapeChange = useCallback((newShape: Room['shape']) => {
+    setShape(newShape);
+    // Auto-set length equal to width for square rooms
+    if (newShape === 'square') {
+      setLength(width);
+    }
+    validateAndUpdate(newShape, width, newShape === 'square' ? width : length, radius, unit, wallColor, floorColor, ceilingColor);
+  }, [width, length, radius, unit, wallColor, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleWidthChange = useCallback((value: string) => {
+    setWidth(value);
+    // Auto-update length for square rooms
+    if (shape === 'square') {
+      setLength(value);
+    }
+    validateAndUpdate(shape, value, shape === 'square' ? value : length, radius, unit, wallColor, floorColor, ceilingColor);
+  }, [shape, length, radius, unit, wallColor, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleLengthChange = useCallback((value: string) => {
+    setLength(value);
+    validateAndUpdate(shape, width, value, radius, unit, wallColor, floorColor, ceilingColor);
+  }, [shape, width, radius, unit, wallColor, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleRadiusChange = useCallback((value: string) => {
+    setRadius(value);
+    validateAndUpdate(shape, width, length, value, unit, wallColor, floorColor, ceilingColor);
+  }, [shape, width, length, unit, wallColor, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleUnitChange = useCallback((newUnit: Room['unit']) => {
+    setUnit(newUnit);
+    validateAndUpdate(shape, width, length, radius, newUnit, wallColor, floorColor, ceilingColor);
+  }, [shape, width, length, radius, wallColor, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleWallColorChange = useCallback((color: string) => {
+    setWallColor(color);
+    validateAndUpdate(shape, width, length, radius, unit, color, floorColor, ceilingColor);
+  }, [shape, width, length, radius, unit, floorColor, ceilingColor, validateAndUpdate]);
+
+  const handleFloorColorChange = useCallback((color: string) => {
+    setFloorColor(color);
+    validateAndUpdate(shape, width, length, radius, unit, wallColor, color, ceilingColor);
+  }, [shape, width, length, radius, unit, wallColor, ceilingColor, validateAndUpdate]);
+
+  const handleCeilingColorChange = useCallback((color: string) => {
+    setCeilingColor(color);
+    validateAndUpdate(shape, width, length, radius, unit, wallColor, floorColor, color);
+  }, [shape, width, length, radius, unit, wallColor, floorColor, validateAndUpdate]);
 
   return (
     <div className="room-config-panel">
@@ -164,7 +166,11 @@ export function RoomConfigPanel() {
 
       {/* Shape Selector */}
       <div className="form-group">
-        <label htmlFor="room-shape">Shape</label>
+        <label htmlFor="room-shape">
+          <Tooltip content="Choose room shape: rectangular, square, or circular">
+            <span>Shape</span>
+          </Tooltip>
+        </label>
         <select
           id="room-shape"
           value={shape}
@@ -234,7 +240,11 @@ export function RoomConfigPanel() {
 
       {/* Unit Selector */}
       <div className="form-group">
-        <label htmlFor="room-unit">Unit</label>
+        <label htmlFor="room-unit">
+          <Tooltip content="Choose measurement unit for dimensions">
+            <span>Unit</span>
+          </Tooltip>
+        </label>
         <select
           id="room-unit"
           value={unit}
@@ -248,7 +258,11 @@ export function RoomConfigPanel() {
 
       {/* Color Pickers */}
       <div className="form-group">
-        <label htmlFor="wall-color">Wall Color</label>
+        <label htmlFor="wall-color">
+          <Tooltip content="Set wall color for the room">
+            <span>Wall Color</span>
+          </Tooltip>
+        </label>
         <div className="color-input-group">
           <input
             id="wall-color"
@@ -273,7 +287,11 @@ export function RoomConfigPanel() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="floor-color">Floor Color</label>
+        <label htmlFor="floor-color">
+          <Tooltip content="Set floor color for the room">
+            <span>Floor Color</span>
+          </Tooltip>
+        </label>
         <div className="color-input-group">
           <input
             id="floor-color"
@@ -298,7 +316,11 @@ export function RoomConfigPanel() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="ceiling-color">Ceiling Color</label>
+        <label htmlFor="ceiling-color">
+          <Tooltip content="Set ceiling color for the room">
+            <span>Ceiling Color</span>
+          </Tooltip>
+        </label>
         <div className="color-input-group">
           <input
             id="ceiling-color"
@@ -323,4 +345,4 @@ export function RoomConfigPanel() {
       </div>
     </div>
   );
-}
+});

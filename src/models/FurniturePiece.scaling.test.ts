@@ -61,7 +61,7 @@ describe('FurniturePiece - Property-Based Tests', () => {
             expect(Math.abs(newDepthToHeight - originalDepthToHeight)).toBeLessThan(0.0001);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -80,7 +80,7 @@ describe('FurniturePiece - Property-Based Tests', () => {
             expect(() => updateScale(furniture, invalidScale)).toThrow();
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
 
@@ -119,7 +119,7 @@ describe('FurniturePiece - Property-Based Tests', () => {
             expect(Math.abs(finalDepthToHeight - originalDepthToHeight)).toBeLessThan(0.0001);
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 1000 }
       );
     });
   });
