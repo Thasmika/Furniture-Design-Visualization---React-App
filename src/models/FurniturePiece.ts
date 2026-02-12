@@ -51,14 +51,23 @@ export function validateFurnitureDimensions(dimensions: FurniturePiece['dimensio
   return { valid: true };
 }
 
-export function createFurniture(type: FurnitureType, color: string = '#8B4513'): FurniturePiece {
+export function createFurniture(
+  type: FurnitureType, 
+  color: string = '#8B4513',
+  position?: { x: number; y: number }
+): FurniturePiece {
   const defaultDims = DEFAULT_DIMENSIONS[type];
 
   return {
     id: crypto.randomUUID(),
     type,
     dimensions: { ...defaultDims },
-    position: { x: 0, y: 0, z: 0, rotation: 0 },
+    position: { 
+      x: position?.x ?? 0, 
+      y: position?.y ?? 0, 
+      z: 0, 
+      rotation: 0 
+    },
     color,
     scale: 1.0,
   };

@@ -10,6 +10,7 @@ export interface Design {
   createdAt: Date;
   updatedAt: Date;
   version: number;
+  thumbnail?: string; // Base64 encoded image data URL
 }
 
 export function createDesign(userId: string, name: string, room: Room): Design {

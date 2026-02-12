@@ -91,7 +91,7 @@ describe('DesignListPage', () => {
   it('renders design list page header', () => {
     renderComponent();
 
-    expect(screen.getByText('🪑 My Designs')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'My Designs' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /New Design/i })).toBeInTheDocument();
   });
 
@@ -142,8 +142,8 @@ describe('DesignListPage', () => {
       });
 
       expect(screen.getByText('Bedroom')).toBeInTheDocument();
-      expect(screen.getByText(/Room: rectangular/i)).toBeInTheDocument();
-      expect(screen.getByText(/Room: square/i)).toBeInTheDocument();
+      expect(screen.getByText('rectangular')).toBeInTheDocument();
+      expect(screen.getByText('square')).toBeInTheDocument();
     });
 
     it('displays empty state when no designs exist', async () => {

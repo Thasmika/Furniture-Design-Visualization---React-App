@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../store';
 import { saveDesign as saveDesignThunk } from '../store/slices/designThunks';
+import { generateDesignThumbnail } from '../utils/thumbnailGenerator';
 import { useToast } from './Toast';
 import './SaveDesignDialog.css';
 
@@ -19,10 +20,17 @@ export const SaveDesignDialog = ({ onClose }: SaveDesignDialogProps) => {
   const handleSave = async () => {
     if (!current) return;
 
-    // Update design name if changed
+    // Generate thumbnail from 3D canvas or create placeholder
+    const thumbnail = generateDesignThumbnail(
+      current.room.shape,
+      current.furniture.length
+    );
+
+    // Update design name and thumbnail
     const designToSave = {
       ...current,
       name: designName,
+      thumbnail,
       updatedAt: new Date(),
     };
 

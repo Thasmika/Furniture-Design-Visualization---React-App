@@ -5,6 +5,8 @@ import { store } from './store';
 import { initializeFirebase } from './services';
 import { initializeAuthListener } from './store/slices/authThunks';
 import { LoginPage, RegisterPage, EditorPage, DesignListPage } from './pages';
+import { ReviewsPage } from './pages/ReviewsPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -62,8 +64,8 @@ function App() {
   }
 
   return (
-    <Provider store={store}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <Provider store={store}>
         <ToastProvider>
           {recoveryData && (
             <RecoveryDialog
@@ -74,7 +76,7 @@ function App() {
           )}
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/" element={<Navigate to="/designs" replace />} />
               <Route
                 path="/login"
                 element={
@@ -100,6 +102,22 @@ function App() {
                 }
               />
               <Route
+                path="/reviews"
+                element={
+                  <ProtectedRoute>
+                    <ReviewsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/editor"
                 element={
                   <ProtectedRoute>
@@ -110,8 +128,8 @@ function App() {
             </Routes>
           </BrowserRouter>
         </ToastProvider>
-      </ErrorBoundary>
-    </Provider>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 

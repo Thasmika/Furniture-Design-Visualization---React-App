@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authenticateUser } from '../store/slices/authThunks';
@@ -19,7 +20,7 @@ export const LoginPage = () => {
     try {
       await dispatch(authenticateUser(email, password));
       showSuccess('Login successful!');
-      navigate('/editor');
+      navigate('/designs');
     } catch (err) {
       showError(error || 'Login failed. Please try again.');
     }

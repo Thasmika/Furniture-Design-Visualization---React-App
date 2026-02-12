@@ -62,7 +62,7 @@ export const Canvas2D: React.FC<Canvas2DProps> = React.memo(({
         <RoomLayer room={design.room} />
         <GridLayer room={design.room} visible={showGrid} />
       </Layer>
-      <Layer>
+      <Layer listening={true}>
         <FurnitureLayer
           furniture={design.furniture}
           room={design.room}

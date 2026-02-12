@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../store/slices/authThunks';
@@ -39,7 +40,7 @@ export const RegisterPage = () => {
     try {
       await dispatch(registerUser(email, password));
       showSuccess('Account created successfully!');
-      navigate('/editor');
+      navigate('/designs');
     } catch (err) {
       showError(error || 'Registration failed. Please try again.');
     }

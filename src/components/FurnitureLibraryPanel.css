@@ -16,6 +16,41 @@
   margin-bottom: 1rem;
 }
 
+.furniture-hint {
+  font-size: 0.85rem;
+  color: #ff9800;
+  background: #fff3e0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+  border: 1px solid #ffe0b2;
+}
+
+.spread-furniture-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.2s;
+}
+
+.spread-furniture-button:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.spread-furniture-button:active {
+  transform: translateY(0);
+}
+
 .furniture-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

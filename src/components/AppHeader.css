@@ -9,6 +9,12 @@
   gap: 2rem;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .header-left h1 {
   margin: 0;
   font-size: 1.5rem;
@@ -109,6 +115,15 @@
 
 .designs-button:hover {
   background-color: #1976D2;
+}
+
+.home-button {
+  color: #fff;
+  background-color: #FF9800;
+}
+
+.home-button:hover {
+  background-color: #F57C00;
 }
 
 .logout-button {

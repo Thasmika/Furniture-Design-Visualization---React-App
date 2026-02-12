@@ -78,6 +78,10 @@ export const AppHeader = () => {
     setShowSaveDialog(false);
   };
 
+  const handleHome = () => {
+    navigate('/designs');
+  };
+
   const handleMyDesigns = () => {
     navigate('/designs');
   };
@@ -95,6 +99,15 @@ export const AppHeader = () => {
     <>
       <header className="app-header">
         <div className="header-left">
+          <Tooltip content="Go to dashboard">
+            <button
+              type="button"
+              onClick={handleHome}
+              className="header-button home-button"
+            >
+              🏠 Home
+            </button>
+          </Tooltip>
           <h1>🪑 Furniture Design Visualizer</h1>
         </div>
         

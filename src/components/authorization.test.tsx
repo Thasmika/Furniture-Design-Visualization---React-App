@@ -125,7 +125,7 @@ describe('Authorization Property Tests', () => {
       );
     });
 
-    it('authenticated users are redirected from public routes to editor', { timeout: 30000 }, () => {
+    it('authenticated users are redirected from public routes to dashboard', { timeout: 30000 }, () => {
       fc.assert(
         fc.property(userArbitrary(), (user) => {
           const { container } = renderWithRouterAndStore(
@@ -138,14 +138,14 @@ describe('Authorization Property Tests', () => {
                   </PublicRoute>
                 }
               />
-              <Route path="/editor" element={<EditorPage />} />
+              <Route path="/designs" element={<div>Dashboard Page</div>} />
             </Routes>,
             user,
             '/login'
           );
 
-          // Authenticated users should be redirected to editor
-          expect(container.textContent).toContain('Editor Page');
+          // Authenticated users should be redirected to dashboard
+          expect(container.textContent).toContain('Dashboard Page');
           expect(container.textContent).not.toContain('Public Content');
         }),
         { numRuns: 100 }
