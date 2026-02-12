@@ -6,13 +6,13 @@ import { getCurrentDesign } from '../store/selectors';
 import { Tooltip } from './Tooltip';
 import './FurnitureLibraryPanel.css';
 
-const FURNITURE_TYPES: { type: FurnitureType; label: string; icon: string }[] = [
-  { type: 'chair', label: 'Chair', icon: '🪑' },
-  { type: 'table', label: 'Table', icon: '🪑' },
-  { type: 'couch', label: 'Couch', icon: '🛋️' },
-  { type: 'bed', label: 'Bed', icon: '🛏️' },
-  { type: 'desk', label: 'Desk', icon: '🖥️' },
-  { type: 'shelf', label: 'Shelf', icon: '📚' },
+const FURNITURE_TYPES: { type: FurnitureType; label: string; icon: string; price: number }[] = [
+  { type: 'chair', label: 'Chair', icon: '🪑', price: 149.99 },
+  { type: 'table', label: 'Table', icon: '🪑', price: 299.99 },
+  { type: 'couch', label: 'Couch', icon: '🛋️', price: 899.99 },
+  { type: 'bed', label: 'Bed', icon: '🛏️', price: 799.99 },
+  { type: 'desk', label: 'Desk', icon: '🖥️', price: 399.99 },
+  { type: 'shelf', label: 'Shelf', icon: '📚', price: 249.99 },
 ];
 
 export const FurnitureLibraryPanel: React.FC = React.memo(() => {
@@ -24,6 +24,11 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
     currentDesign?.furniture.length || 0,
     [currentDesign?.furniture.length]
   );
+
+  const totalCost = useMemo(() => {
+    if (!currentDesign?.furniture.length) return 0;
+    return currentDesign.furniture.reduce((sum, piece) => sum + (piece.price || 0), 0);
+  }, [currentDesign?.furniture]);
 
   const handleAddFurniture = useCallback((type: FurnitureType) => {
     if (!currentDesign?.room) return;
@@ -113,6 +118,11 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
       <div className="furniture-count">
         {furnitureCount} piece{furnitureCount !== 1 ? 's' : ''} in design
       </div>
+      {totalCost > 0 && (
+        <div className="total-cost">
+          💰 Total Cost: ${totalCost.toFixed(2)}
+        </div>
+      )}
       {activeView !== '2d' && furnitureCount > 0 && (
         <div className="furniture-hint">
           💡 Switch to 2D View to drag furniture
@@ -128,8 +138,8 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
         </button>
       )}
       <div className="furniture-buttons">
-        {FURNITURE_TYPES.map(({ type, label, icon }) => (
-          <Tooltip key={type} content={`Add ${label} to design`}>
+        {FURNITURE_TYPES.map(({ type, label, icon, price }) => (
+          <Tooltip key={type} content={`Add ${label} to design - $${price}`}>
             <button
               type="button"
               className="furniture-button"
@@ -138,6 +148,7 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
             >
               <span className="furniture-icon">{icon}</span>
               <span className="furniture-label">{label}</span>
+              <span className="furniture-price">${price}</span>
             </button>
           </Tooltip>
         ))}

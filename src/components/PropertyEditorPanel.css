@@ -28,6 +28,18 @@
   padding: 0.75rem;
   background: white;
   border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.furniture-price-display {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f766e;
+  background: #e6f7f5;
+  padding: 0.6rem;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #14b8a6;
   margin-bottom: 1rem;
 }
 

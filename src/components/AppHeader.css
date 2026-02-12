@@ -135,6 +135,30 @@
   background-color: #d0d0d0;
 }
 
+.total-cost-badge {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f766e;
+  background: linear-gradient(135deg, #e6f7f5 0%, #ccf0eb 100%);
+  border: 2px solid #14b8a6;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .app-header {

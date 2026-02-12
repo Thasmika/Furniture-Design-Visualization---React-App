@@ -108,6 +108,11 @@ export const PropertyEditorPanel: React.FC = React.memo(() => {
             </button>
           </Tooltip>
         </div>
+        {selectedFurniture.price && (
+          <div className="furniture-price-display">
+            💰 ${selectedFurniture.price.toFixed(2)}
+          </div>
+        )}
       </div>
 
       <div className="property-section">

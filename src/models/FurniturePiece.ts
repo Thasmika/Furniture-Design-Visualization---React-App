@@ -18,6 +18,7 @@ export interface FurniturePiece {
   };
   color: string;
   scale: number;
+  price?: number;
 }
 
 const DEFAULT_DIMENSIONS: Record<FurnitureType, { width: number; depth: number; height: number }> = {
@@ -27,6 +28,15 @@ const DEFAULT_DIMENSIONS: Record<FurnitureType, { width: number; depth: number; 
   bed: { width: 6.5, depth: 5, height: 2 },
   desk: { width: 5, depth: 2.5, height: 2.5 },
   shelf: { width: 3, depth: 1, height: 6 },
+};
+
+const DEFAULT_PRICES: Record<FurnitureType, number> = {
+  chair: 149.99,
+  table: 299.99,
+  couch: 899.99,
+  bed: 799.99,
+  desk: 399.99,
+  shelf: 249.99,
 };
 
 export function validateFurnitureDimensions(dimensions: FurniturePiece['dimensions']): ValidationResult {
@@ -70,6 +80,7 @@ export function createFurniture(
     },
     color,
     scale: 1.0,
+    price: DEFAULT_PRICES[type],
   };
 }
 

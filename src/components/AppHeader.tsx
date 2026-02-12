@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from '../store';
@@ -12,10 +12,16 @@ export const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.auth);
-  const { isDirty } = useSelector((state: RootState) => state.design);
+  const { isDirty, current } = useSelector((state: RootState) => state.design);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [undoEnabled, setUndoEnabled] = useState(false);
   const [redoEnabled, setRedoEnabled] = useState(false);
+
+  // Calculate total cost of furniture in current design
+  const totalCost = useMemo(() => {
+    if (!current?.furniture.length) return 0;
+    return current.furniture.reduce((sum, piece) => sum + (piece.price || 0), 0);
+  }, [current?.furniture]);
 
   // Update undo/redo button states
   useEffect(() => {
@@ -151,6 +157,13 @@ export const AppHeader = () => {
               📁 My Designs
             </button>
           </Tooltip>
+          {totalCost > 0 && (
+            <Tooltip content="Total cost of all furniture in your design">
+              <div className="total-cost-badge">
+                💰 Total: ${totalCost.toFixed(2)}
+              </div>
+            </Tooltip>
+          )}
         </div>
 
         <div className="header-right">
