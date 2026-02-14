@@ -162,6 +162,10 @@ export const DesignListPage = () => {
           <span className="sidebar-icon">👤</span>
           <span>Profile</span>
         </div>
+        <div className="sidebar-item" onClick={() => navigate('/contact')}>
+          <span className="sidebar-icon">📧</span>
+          <span>Contact Us</span>
+        </div>
       </aside>
 
       {/* Main Content */}

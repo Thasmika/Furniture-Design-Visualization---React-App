@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { store } from './store';
 import { initializeFirebase } from './services';
 import { initializeAuthListener } from './store/slices/authThunks';
-import { LoginPage, RegisterPage, EditorPage, DesignListPage } from './pages';
+import { LoginPage, RegisterPage, EditorPage, DesignListPage, ContactPage } from './pages';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -114,6 +114,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/contact"
+                element={
+                  <ProtectedRoute>
+                    <ContactPage />
                   </ProtectedRoute>
                 }
               />

@@ -29,6 +29,9 @@ vi.mock('./pages', () => ({
   RegisterPage: () => <div>Register Page</div>,
   EditorPage: () => <div>Editor Page</div>,
   DesignListPage: () => <div>Design List Page</div>,
+  ContactPage: () => <div>Contact Page</div>,
+  ProfilePage: () => <div>Profile Page</div>,
+  ReviewsPage: () => <div>Reviews Page</div>,
 }));
 
 describe('App Component - Routing', () => {
@@ -63,7 +66,7 @@ describe('App Component - Routing', () => {
   describe('Authentication Route Guards', () => {
     it('should allow authenticated users to access protected routes', async () => {
       // Set authenticated user
-      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com' }));
+      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User' }));
 
       render(<App />);
 
@@ -134,7 +137,7 @@ describe('App Component - Routing', () => {
   describe('Session Persistence (Requirement 8.6)', () => {
     it('should maintain authentication state across app restarts', async () => {
       // Set authenticated user
-      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com' }));
+      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User' }));
 
       // First render - user is authenticated
       const { unmount } = render(<App />);
