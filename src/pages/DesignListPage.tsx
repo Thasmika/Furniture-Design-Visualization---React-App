@@ -140,8 +140,18 @@ export const DesignListPage = () => {
 
   return (
     <div className="design-list-page">
-      {/* Sidebar */}
-      <aside className="sidebar">
+      {/* Top Navbar */}
+      <nav className="top-navbar">
+        <div className="navbar-brand">
+          <span className="navbar-icon">🪑</span>
+          <span className="navbar-title">FurniVision</span>
+        </div>
+        <div className="navbar-tagline">Design Your Dream Space</div>
+      </nav>
+
+      <div className="page-content-wrapper">
+        {/* Sidebar */}
+        <aside className="sidebar">
         <div className="sidebar-item active">
           <span className="sidebar-icon">📊</span>
           <span>Dashboard</span>
@@ -197,10 +207,8 @@ export const DesignListPage = () => {
               <span className="stat-icon">📅</span>
             </div>
             <div className="stat-info">
-              <div className="stat-number">
-                {new Date(lastUpdated).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-              </div>
-              <div className="stat-label">Last Updated</div>
+              <div className="stat-number">{saved.length > 0 ? Math.floor((Date.now() - new Date(lastUpdated).getTime()) / (1000 * 60 * 60 * 24)) : 0}</div>
+              <div className="stat-label">Days Since Update</div>
             </div>
           </div>
         </div>
@@ -261,23 +269,8 @@ export const DesignListPage = () => {
                 </div>
               ) : (
                 saved.map((design) => {
-                  // Generate thumbnail if it doesn't exist or is invalid
-                  let thumbnail = design.thumbnail;
-                  
-                  // Check if thumbnail is valid (should start with data: for data URLs)
-                  if (!thumbnail || !thumbnail.startsWith('data:')) {
-                    console.log(`Generating new thumbnail for design: ${design.name}`);
-                    thumbnail = generatePlaceholderThumbnail(
-                      design.room.shape,
-                      design.furniture.length
-                    );
-                  }
-                  
-                  // Final fallback - ensure we always have a valid SVG
-                  if (!thumbnail || thumbnail.length < 50 || !thumbnail.startsWith('data:')) {
-                    console.log(`Using SVG fallback for design: ${design.name}`);
-                    thumbnail = createSVGPlaceholder(design.room.shape, design.furniture.length);
-                  }
+                  // Always use SVG placeholder for consistency
+                  const thumbnail = createSVGPlaceholder(design.room.shape, design.furniture.length);
                   
                   return (
                   <div key={design.id} className="design-card">
@@ -286,12 +279,6 @@ export const DesignListPage = () => {
                         src={thumbnail} 
                         alt={design.name}
                         className="design-thumbnail-image"
-                        onError={(e) => {
-                          // If image fails to load, replace with SVG placeholder
-                          console.error(`Image failed to load for design: ${design.name}`);
-                          const target = e.target as HTMLImageElement;
-                          target.src = createSVGPlaceholder(design.room.shape, design.furniture.length);
-                        }}
                       />
                     </div>
                     <div className="card-body">
@@ -337,6 +324,42 @@ export const DesignListPage = () => {
           )}
         </div>
       </main>
+      </div>
+
+      {/* Company Footer */}
+      <footer className="company-footer">
+        <div className="footer-content">
+          <div className="footer-logo">
+            <div className="logo-icon">🪑</div>
+            <div className="logo-text">
+              <h3>FurniVision</h3>
+              <p className="tagline">Design Your Dream Space</p>
+            </div>
+          </div>
+          <div className="footer-divider"></div>
+          <div className="footer-info">
+            <p className="copyright">© 2026 FurniVision Inc. All rights reserved.</p>
+            <p className="motto">Transforming spaces, one design at a time</p>
+          </div>
+          <div className="footer-social">
+            <a href="https://www.instagram.com/furnivision" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@furnivision" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@furnivision" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
 
       {/* Delete Confirmation Modal */}
       {deleteConfirmId && (

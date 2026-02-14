@@ -13,6 +13,8 @@ const FURNITURE_TYPES: { type: FurnitureType; label: string; icon: string; price
   { type: 'bed', label: 'Bed', icon: '🛏️', price: 799.99 },
   { type: 'desk', label: 'Desk', icon: '🖥️', price: 399.99 },
   { type: 'shelf', label: 'Shelf', icon: '📚', price: 249.99 },
+  { type: 'cabinet', label: 'Cabinet', icon: '🗃️', price: 499.99 },
+  { type: 'lamp', label: 'Lamp', icon: '💡', price: 89.99 },
 ];
 
 export const FurnitureLibraryPanel: React.FC = React.memo(() => {

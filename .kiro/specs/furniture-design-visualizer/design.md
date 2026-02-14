@@ -136,7 +136,7 @@ interface Room {
 ```typescript
 interface FurniturePiece {
   id: string;
-  type: 'chair' | 'table' | 'couch' | 'bed' | 'desk' | 'shelf';
+  type: 'chair' | 'table' | 'couch' | 'bed' | 'desk' | 'shelf' | 'cabinet' | 'lamp';
   dimensions: {
     width: number;  // in feet
     depth: number;  // in feet
@@ -168,6 +168,8 @@ interface FurniturePiece {
 - Bed: 6.5' × 5' × 2'
 - Desk: 5' × 2.5' × 2.5'
 - Shelf: 3' × 1' × 6'
+- Cabinet: 4' × 2' × 5'
+- Lamp: 1.5' × 1.5' × 4'
 
 ### 3. Design Model
 

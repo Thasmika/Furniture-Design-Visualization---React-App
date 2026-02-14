@@ -1,6 +1,6 @@
 import type { ValidationResult } from './Room';
 
-export type FurnitureType = 'chair' | 'table' | 'couch' | 'bed' | 'desk' | 'shelf';
+export type FurnitureType = 'chair' | 'table' | 'couch' | 'bed' | 'desk' | 'shelf' | 'cabinet' | 'lamp';
 
 export interface FurniturePiece {
   id: string;
@@ -28,6 +28,8 @@ const DEFAULT_DIMENSIONS: Record<FurnitureType, { width: number; depth: number; 
   bed: { width: 6.5, depth: 5, height: 2 },
   desk: { width: 5, depth: 2.5, height: 2.5 },
   shelf: { width: 3, depth: 1, height: 6 },
+  cabinet: { width: 4, depth: 2, height: 5 },
+  lamp: { width: 1.5, depth: 1.5, height: 4 },
 };
 
 const DEFAULT_PRICES: Record<FurnitureType, number> = {
@@ -37,6 +39,8 @@ const DEFAULT_PRICES: Record<FurnitureType, number> = {
   bed: 799.99,
   desk: 399.99,
   shelf: 249.99,
+  cabinet: 499.99,
+  lamp: 89.99,
 };
 
 export function validateFurnitureDimensions(dimensions: FurniturePiece['dimensions']): ValidationResult {

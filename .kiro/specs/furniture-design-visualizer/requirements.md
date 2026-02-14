@@ -38,7 +38,7 @@ This document specifies the requirements for a furniture design visualization ap
 
 #### Acceptance Criteria
 
-1. THE System SHALL provide a library of furniture piece types including chairs, tables, and couches
+1. THE System SHALL provide a library of furniture piece types including chairs, tables, couches, beds, desks, shelves, cabinets, and lamps
 2. WHEN a designer selects a furniture piece type, THE System SHALL create an instance of that piece with default properties
 3. THE System SHALL allow customization of furniture piece size through dimensional inputs
 4. THE System SHALL allow customization of furniture piece color through a color picker interface

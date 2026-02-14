@@ -232,6 +232,90 @@ const renderFurnitureShape = (
         </>
       );
 
+    case 'cabinet':
+      // Cabinet with doors
+      return (
+        <>
+          {/* Main body */}
+          <Rect
+            width={width}
+            height={depth}
+            fill={baseColor}
+            stroke={isSelected ? '#0066ff' : darkColor}
+            strokeWidth={isSelected ? 3 : 2}
+            cornerRadius={4}
+          />
+          {/* Door divider */}
+          <Line
+            points={[width / 2, 0, width / 2, depth]}
+            stroke={darkColor}
+            strokeWidth={2}
+          />
+          {/* Door handles */}
+          <Circle x={width * 0.35} y={depth * 0.5} radius={3} fill={darkColor} />
+          <Circle x={width * 0.65} y={depth * 0.5} radius={3} fill={darkColor} />
+          {/* Top and bottom trim */}
+          <Line
+            points={[0, depth * 0.1, width, depth * 0.1]}
+            stroke={lightColor}
+            strokeWidth={1}
+          />
+          <Line
+            points={[0, depth * 0.9, width, depth * 0.9]}
+            stroke={lightColor}
+            strokeWidth={1}
+          />
+        </>
+      );
+
+    case 'lamp':
+      // Lamp with base and shade
+      return (
+        <>
+          {/* Base */}
+          <Circle
+            x={width / 2}
+            y={depth * 0.8}
+            radius={width * 0.4}
+            fill={darkColor}
+            stroke={isSelected ? '#0066ff' : '#000000'}
+            strokeWidth={isSelected ? 3 : 2}
+          />
+          {/* Pole */}
+          <Rect
+            width={width * 0.15}
+            height={depth * 0.6}
+            x={width * 0.425}
+            y={depth * 0.2}
+            fill={darkColor}
+            stroke={isSelected ? '#0066ff' : '#000000'}
+            strokeWidth={isSelected ? 2 : 1}
+          />
+          {/* Lampshade (trapezoid shape) */}
+          <Line
+            points={[
+              width * 0.2, depth * 0.2,
+              width * 0.8, depth * 0.2,
+              width * 0.7, 0,
+              width * 0.3, 0,
+              width * 0.2, depth * 0.2
+            ]}
+            fill={baseColor}
+            stroke={isSelected ? '#0066ff' : darkColor}
+            strokeWidth={isSelected ? 3 : 2}
+            closed={true}
+          />
+          {/* Light glow effect */}
+          <Circle
+            x={width / 2}
+            y={depth * 0.1}
+            radius={width * 0.2}
+            fill="#FFFF99"
+            opacity={0.3}
+          />
+        </>
+      );
+
     default:
       return (
         <Rect

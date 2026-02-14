@@ -199,6 +199,85 @@ const FurnitureGeometry: React.FC<{
         </group>
       );
 
+    case 'cabinet':
+      return (
+        <group>
+          {/* Main cabinet body */}
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[width, height, depth]} />
+            {material}
+          </mesh>
+          {/* Left door */}
+          <mesh position={[-width * 0.26, 0, depth * 0.51]}>
+            <boxGeometry args={[width * 0.45, height * 0.9, depth * 0.02]} />
+            <meshStandardMaterial color={color} roughness={0.5} metalness={0.2} />
+          </mesh>
+          {/* Right door */}
+          <mesh position={[width * 0.26, 0, depth * 0.51]}>
+            <boxGeometry args={[width * 0.45, height * 0.9, depth * 0.02]} />
+            <meshStandardMaterial color={color} roughness={0.5} metalness={0.2} />
+          </mesh>
+          {/* Door handles */}
+          <mesh position={[-width * 0.15, 0, depth * 0.53]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.03, 0.03, 0.15, 8]} />
+            <meshStandardMaterial color="#333333" metalness={0.9} roughness={0.2} />
+          </mesh>
+          <mesh position={[width * 0.15, 0, depth * 0.53]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.03, 0.03, 0.15, 8]} />
+            <meshStandardMaterial color="#333333" metalness={0.9} roughness={0.2} />
+          </mesh>
+          {/* Top trim */}
+          <mesh position={[0, height * 0.52, 0]}>
+            <boxGeometry args={[width * 1.05, height * 0.04, depth * 1.05]} />
+            <meshStandardMaterial color="#654321" roughness={0.7} />
+          </mesh>
+        </group>
+      );
+
+    case 'lamp':
+      return (
+        <group>
+          {/* Base */}
+          <mesh position={[0, -height * 0.45, 0]}>
+            <cylinderGeometry args={[width * 0.4, width * 0.5, height * 0.1, 16]} />
+            <meshStandardMaterial color="#654321" roughness={0.6} metalness={0.3} />
+          </mesh>
+          {/* Pole */}
+          <mesh position={[0, 0, 0]}>
+            <cylinderGeometry args={[width * 0.08, width * 0.08, height * 0.7, 12]} />
+            <meshStandardMaterial color="#8B7355" roughness={0.5} metalness={0.4} />
+          </mesh>
+          {/* Lampshade (cone shape) */}
+          <mesh position={[0, height * 0.4, 0]}>
+            <coneGeometry args={[width * 0.5, height * 0.3, 16]} />
+            <meshStandardMaterial 
+              color={color} 
+              roughness={0.8}
+              emissive="#FFFF99"
+              emissiveIntensity={isSelected ? 0.5 : 0.2}
+            />
+          </mesh>
+          {/* Light bulb (visible from bottom) */}
+          <mesh position={[0, height * 0.28, 0]}>
+            <sphereGeometry args={[width * 0.15, 12, 12]} />
+            <meshStandardMaterial 
+              color="#FFFFCC" 
+              emissive="#FFFF99"
+              emissiveIntensity={0.8}
+              transparent={true}
+              opacity={0.7}
+            />
+          </mesh>
+          {/* Point light for lamp glow */}
+          <pointLight 
+            position={[0, height * 0.3, 0]} 
+            intensity={isSelected ? 2 : 1} 
+            distance={3}
+            color="#FFFF99"
+          />
+        </group>
+      );
+
     default:
       return (
         <mesh>
