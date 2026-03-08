@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './store';
 import { initializeFirebase } from './services';
 import { initializeAuthListener } from './store/slices/authThunks';
 import { LoginPage, RegisterPage, EditorPage, DesignListPage, ContactPage } from './pages';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { LandingPage } from './pages/LandingPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -76,7 +77,7 @@ function App() {
           )}
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate to="/designs" replace />} />
+              <Route path="/" element={<LandingPage />} />
               <Route
                 path="/login"
                 element={

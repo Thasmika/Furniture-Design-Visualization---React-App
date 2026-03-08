@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import designReducer from './slices/designSlice';
 import uiReducer from './slices/uiSlice';
+import landingReducer from './slices/landingSlice';
 import { historyMiddleware } from './middleware/historyMiddleware';
 import { cacheMiddleware } from './middleware/cacheMiddleware';
 import type { AppState } from './types';
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authReducer,
     design: designReducer,
     ui: uiReducer,
+    landing: landingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

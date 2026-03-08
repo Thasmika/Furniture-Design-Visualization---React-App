@@ -172,3 +172,45 @@ This document specifies the requirements for a furniture design visualization ap
 4. WHEN the application restarts after unexpected termination, THE System SHALL offer to restore the cached design
 5. THE System SHALL validate design data integrity before saving to detect corruption
 6. THE System SHALL provide clear error messages when save operations fail, including guidance for resolution
+
+### Requirement 13: User Profile Management
+
+**User Story:** As a designer, I want to manage my profile information, so that I can personalize my account and control my preferences.
+
+#### Acceptance Criteria
+
+1. THE System SHALL provide a profile page displaying user information including display name, email, phone, location, and bio
+2. WHEN a designer clicks edit profile, THE System SHALL allow modification of display name, phone, location, and bio fields
+3. THE System SHALL display user statistics including total designs created, total furniture pieces used, and membership duration
+4. THE System SHALL provide toggleable settings for email notifications, auto-save, and marketing emails
+5. WHEN a designer saves profile changes, THE System SHALL persist the updates and display a success confirmation
+6. THE System SHALL provide a profile avatar with the user's initial and an option to change the photo
+7. THE System SHALL provide account deletion functionality with confirmation prompt in a danger zone section
+
+### Requirement 14: Customer Reviews and Ratings
+
+**User Story:** As a designer, I want to view and submit reviews about the application, so that I can share feedback and see what other users think.
+
+#### Acceptance Criteria
+
+1. THE System SHALL display a reviews page showing all customer reviews with ratings, comments, and dates
+2. THE System SHALL calculate and display the average rating based on all submitted reviews
+3. THE System SHALL display a rating distribution chart showing the count of reviews for each star rating (1-5)
+4. WHEN a designer clicks write review, THE System SHALL display a review form with rating selector and comment textarea
+5. WHEN a designer submits a review, THE System SHALL validate the comment has at least 10 characters
+6. THE System SHALL associate submitted reviews with the authenticated user's name and email
+7. THE System SHALL display reviews in reverse chronological order (newest first)
+8. THE System SHALL render star ratings visually with filled and empty stars
+
+### Requirement 15: Contact and Support
+
+**User Story:** As a designer, I want to contact support with questions or issues, so that I can get help when needed.
+
+#### Acceptance Criteria
+
+1. THE System SHALL provide a contact page with a contact form including name, email, subject, and message fields
+2. THE System SHALL display contact information including support email, phone number, physical address, and business hours
+3. WHEN a designer submits the contact form, THE System SHALL validate all required fields are filled
+4. WHEN the form is successfully submitted, THE System SHALL display a success message and clear the form
+5. THE System SHALL provide a back button to return to the dashboard from the contact page
+6. THE System SHALL display contact information in an organized layout with icons for visual clarity

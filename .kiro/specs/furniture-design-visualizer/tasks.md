@@ -561,6 +561,171 @@ The implementation uses React with TypeScript for type safety, Redux for state m
   - Verify all 34 correctness properties are tested
   - Verify application runs on both Windows and macOS
 
+- [x] 30. Implement user profile management
+  - [x] 30.1 Create ProfilePage component
+    - Display user information (display name, email, phone, location, bio)
+    - Add profile avatar with user initial
+    - Show user statistics (total designs, furniture pieces, member since)
+    - Implement edit mode for profile fields
+    - Add save and cancel buttons for profile editing
+    - _Requirements: 13.1, 13.2, 13.3, 13.6_
+  
+  - [x] 30.2 Create account settings section
+    - Add toggle switches for email notifications, auto-save, marketing emails
+    - Persist settings changes to user profile
+    - Display settings descriptions
+    - _Requirements: 13.4_
+  
+  - [x] 30.3 Create danger zone section
+    - Add delete account button with confirmation dialog
+    - Implement account deletion functionality
+    - Display warning message about permanent deletion
+    - _Requirements: 13.7_
+  
+  - [x] 30.4 Integrate profile with Firebase
+    - Create user profile document in Firestore on registration
+    - Implement updateProfile function in storage service
+    - Load profile data on profile page mount
+    - Save profile changes to Firestore
+    - _Requirements: 13.5_
+  
+  - [x] 30.5 Write unit tests for profile components
+    - Test ProfilePage renders user information
+    - Test edit mode allows field modifications
+    - Test settings toggles update state
+    - Test delete account shows confirmation
+    - _Requirements: 13.1, 13.2, 13.4, 13.7_
+
+- [x] 31. Implement reviews and ratings system
+  - [x] 31.1 Create ReviewsPage component
+    - Display overall rating card with average and distribution
+    - Show reviews list with pagination
+    - Add write review button
+    - Implement sidebar navigation
+    - _Requirements: 14.1, 14.2, 14.3_
+  
+  - [x] 31.2 Create StarRating component
+    - Implement display mode (read-only stars)
+    - Implement interactive mode (clickable stars)
+    - Support half-star ratings for averages
+    - Add hover effects for interactive mode
+    - _Requirements: 14.8_
+  
+  - [x] 31.3 Create ReviewForm component
+    - Add rating selector with interactive stars
+    - Add comment textarea with character validation
+    - Implement form submission
+    - Display validation errors
+    - _Requirements: 14.4, 14.5_
+  
+  - [x] 31.4 Create review statistics calculator
+    - Calculate average rating from all reviews
+    - Generate rating distribution (1-5 stars)
+    - Count total reviews
+    - Update statistics when new review added
+    - _Requirements: 14.2, 14.3_
+  
+  - [x] 31.5 Integrate reviews with Firebase
+    - Create reviews collection in Firestore
+    - Implement submitReview function
+    - Implement loadReviews function
+    - Associate reviews with user information
+    - Sort reviews by date (newest first)
+    - _Requirements: 14.6, 14.7_
+  
+  - [x] 31.6 Write unit tests for reviews components
+    - Test ReviewsPage displays reviews correctly
+    - Test StarRating renders correct number of filled stars
+    - Test ReviewForm validates comment length
+    - Test review submission creates new review
+    - Test statistics calculation is accurate
+    - _Requirements: 14.1, 14.2, 14.5, 14.8_
+
+- [x] 32. Implement contact and support page
+  - [x] 32.1 Create ContactPage component
+    - Display contact form with name, email, subject, message fields
+    - Show contact information section with email, phone, address, hours
+    - Add back button to return to dashboard
+    - Implement form validation
+    - _Requirements: 15.1, 15.2, 15.5_
+  
+  - [x] 32.2 Create contact form submission
+    - Validate all required fields
+    - Display success message on submission
+    - Clear form after successful submission
+    - Auto-hide success message after 3 seconds
+    - _Requirements: 15.3, 15.4_
+  
+  - [x] 32.3 Style contact page
+    - Create responsive layout with form and info side-by-side
+    - Add icons for contact information items
+    - Style form inputs and buttons
+    - Add hover effects and transitions
+    - _Requirements: 15.6_
+  
+  - [x] 32.4 Write unit tests for contact page
+    - Test ContactPage renders form and info
+    - Test form validation prevents empty submission
+    - Test success message displays after submission
+    - Test form clears after submission
+    - _Requirements: 15.1, 15.3, 15.4_
+
+- [x] 33. Update navigation and routing
+  - [x] 33.1 Add new routes to App.tsx
+    - Add /profile route with ProtectedRoute
+    - Add /reviews route with ProtectedRoute
+    - Add /contact route with ProtectedRoute
+    - Update default redirect to /designs
+    - _Requirements: 13.1, 14.1, 15.1_
+  
+  - [x] 33.2 Create sidebar navigation component
+    - Add navigation items for Dashboard, My Designs, Reviews, Profile, Contact
+    - Highlight active navigation item
+    - Add icons for each navigation item
+    - Make navigation items clickable with routing
+    - _Requirements: 13.1, 14.1, 15.1_
+  
+  - [x] 33.3 Update existing pages with sidebar
+    - Add sidebar to ProfilePage
+    - Add sidebar to ReviewsPage
+    - Ensure consistent layout across pages
+    - _Requirements: 13.1, 14.1_
+
+- [x] 34. Final integration testing for new features
+  - [x] 34.1 Test profile management workflow
+    - Test user can view profile information
+    - Test user can edit and save profile
+    - Test settings toggles work correctly
+    - Test profile data persists across sessions
+    - _Requirements: 13.1, 13.2, 13.4, 13.5_
+  
+  - [x] 34.2 Test reviews workflow
+    - Test user can view all reviews
+    - Test user can submit new review
+    - Test rating statistics update correctly
+    - Test reviews display in correct order
+    - _Requirements: 14.1, 14.4, 14.7_
+  
+  - [x] 34.3 Test contact workflow
+    - Test user can submit contact form
+    - Test form validation works
+    - Test success message displays
+    - Test navigation back to dashboard
+    - _Requirements: 15.1, 15.3, 15.4, 15.5_
+  
+  - [x] 34.4 Test navigation between pages
+    - Test all routes are accessible
+    - Test protected routes require authentication
+    - Test sidebar navigation works on all pages
+    - Test active navigation highlighting
+    - _Requirements: 13.1, 14.1, 15.1_
+
+- [x] 35. Final checkpoint - All features complete
+  - Ensure all tests pass for new features
+  - Verify all 15 requirements are implemented
+  - Verify navigation works seamlessly across all pages
+  - Verify consistent UI/UX across profile, reviews, and contact pages
+
 ## Notes
 
 - All tasks are required for comprehensive implementation with full test coverage

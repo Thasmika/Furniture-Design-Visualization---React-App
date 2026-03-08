@@ -1,4 +1,5 @@
 import type { Design } from '../models/Design';
+import type { LandingPageState } from './slices/landingSlice';
 
 // User type for authentication
 export interface User {
@@ -37,4 +38,5 @@ export interface AppState {
   auth: AuthState;
   design: DesignState;
   ui: UIState;
+  landing: LandingPageState;
 }

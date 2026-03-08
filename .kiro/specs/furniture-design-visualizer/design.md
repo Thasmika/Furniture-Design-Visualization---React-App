@@ -681,6 +681,143 @@ function convert3Dto2D(pos3D: Vector3, room: Room): {x: number, y: number} {
 4. **Offline mode**: Allow design work without network, sync when online
 5. **Undo/Redo**: Maintain operation history for reverting mistakes
 
+### 9. User Profile Management
+
+**Purpose**: Allow users to view and edit their profile information and account settings.
+
+**Data Structure**:
+```typescript
+interface UserProfile {
+  userId: string;
+  displayName: string;
+  email: string;
+  phone?: string;
+  location?: string;
+  bio?: string;
+  avatarUrl?: string;
+  settings: {
+    emailNotifications: boolean;
+    autoSave: boolean;
+    marketingEmails: boolean;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+**Components**:
+- `ProfilePage`: Main profile page container
+- `ProfileCard`: Displays and edits user information
+- `ProfileStats`: Shows user statistics (designs, furniture, membership)
+- `AccountSettings`: Toggleable settings for notifications and preferences
+- `DangerZone`: Account deletion functionality
+
+**Operations**:
+- `updateProfile(userId, updates): Promise<void>`
+- `updateSettings(userId, settings): Promise<void>`
+- `deleteAccount(userId): Promise<void>`
+- `uploadAvatar(userId, file): Promise<string>`
+
+### 10. Reviews and Ratings System
+
+**Purpose**: Allow users to submit and view reviews about the application.
+
+**Data Structure**:
+```typescript
+interface Review {
+  id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  rating: number; // 1-5
+  comment: string;
+  date: Date;
+  helpful: number; // count of helpful votes
+}
+
+interface ReviewStats {
+  averageRating: number;
+  totalReviews: number;
+  distribution: {
+    5: number;
+    4: number;
+    3: number;
+    2: number;
+    1: number;
+  };
+}
+```
+
+**Components**:
+- `ReviewsPage`: Main reviews page container
+- `OverallRatingCard`: Displays average rating and distribution
+- `ReviewForm`: Form for submitting new reviews
+- `ReviewsList`: Displays all reviews with pagination
+- `ReviewCard`: Individual review display with stars and comment
+- `StarRating`: Reusable star rating component (display and interactive modes)
+
+**Operations**:
+- `submitReview(review): Promise<void>`
+- `loadReviews(): Promise<Review[]>`
+- `calculateStats(reviews): ReviewStats`
+- `markHelpful(reviewId): Promise<void>`
+
+### 11. Contact and Support
+
+**Purpose**: Provide users with a way to contact support and view contact information.
+
+**Data Structure**:
+```typescript
+interface ContactMessage {
+  id: string;
+  userId: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  status: 'pending' | 'responded' | 'resolved';
+  createdAt: Date;
+}
+
+interface ContactInfo {
+  email: string;
+  phone: string;
+  address: string;
+  businessHours: string;
+}
+```
+
+**Components**:
+- `ContactPage`: Main contact page container
+- `ContactForm`: Form for submitting contact messages
+- `ContactInfo`: Displays support contact information
+- `SuccessMessage`: Confirmation message after form submission
+
+**Operations**:
+- `submitContactMessage(message): Promise<void>`
+- `getContactInfo(): ContactInfo`
+
+### 12. Navigation and Routing
+
+**Purpose**: Provide seamless navigation between different pages of the application.
+
+**Routes**:
+- `/` - Redirects to `/designs`
+- `/login` - Login page (public)
+- `/register` - Registration page (public)
+- `/designs` - Design list/dashboard (protected)
+- `/editor` - Design editor (protected)
+- `/profile` - User profile (protected)
+- `/reviews` - Reviews page (protected)
+- `/contact` - Contact page (protected)
+
+**Sidebar Navigation**:
+- Dashboard (📊) - Links to `/designs`
+- My Designs (📁) - Links to `/designs`
+- Reviews (⭐) - Links to `/reviews`
+- Profile (👤) - Links to `/profile`
+- Contact (📧) - Links to `/contact`
+
 ## Testing Strategy
 
 ### Dual Testing Approach

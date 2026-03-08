@@ -84,3 +84,41 @@ export const getSidebarOpen = createSelector(
   [selectUIState],
   (ui) => ui.sidebarOpen
 );
+
+// Landing page selectors
+const selectLandingState = (state: RootState) => state.landing;
+
+export const selectStatistics = createSelector(
+  [selectLandingState],
+  (landing) => landing.statistics.data
+);
+
+export const selectTestimonials = createSelector(
+  [selectLandingState],
+  (landing) => landing.testimonials.data
+);
+
+export const selectStatisticsLoading = createSelector(
+  [selectLandingState],
+  (landing) => landing.statistics.loading
+);
+
+export const selectTestimonialsLoading = createSelector(
+  [selectLandingState],
+  (landing) => landing.testimonials.loading
+);
+
+export const selectStatisticsError = createSelector(
+  [selectLandingState],
+  (landing) => landing.statistics.error
+);
+
+export const selectTestimonialsError = createSelector(
+  [selectLandingState],
+  (landing) => landing.testimonials.error
+);
+
+export const selectStatisticsLastFetched = createSelector(
+  [selectLandingState],
+  (landing) => landing.statistics.lastFetched
+);
