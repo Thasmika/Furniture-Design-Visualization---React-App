@@ -52,11 +52,11 @@ export const ProfilePage = () => {
     <div className="profile-page">
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="sidebar-item" onClick={() => navigate('/designs')}>
+        <div className="sidebar-item" onClick={() => navigate('/')}>
           <span className="sidebar-icon">📊</span>
           <span>Dashboard</span>
         </div>
-        <div className="sidebar-item" onClick={() => navigate('/designs')}>
+        <div className="sidebar-item" onClick={() => navigate('/')}>
           <span className="sidebar-icon">📁</span>
           <span>My Designs</span>
         </div>

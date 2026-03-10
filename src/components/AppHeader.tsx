@@ -85,11 +85,11 @@ export const AppHeader = () => {
   };
 
   const handleHome = () => {
-    navigate('/designs');
+    navigate('/');
   };
 
   const handleMyDesigns = () => {
-    navigate('/designs');
+    navigate('/my-designs');
   };
 
   const handleLogout = async () => {

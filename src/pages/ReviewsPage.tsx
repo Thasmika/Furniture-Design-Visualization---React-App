@@ -109,11 +109,11 @@ export const ReviewsPage = () => {
     <div className="reviews-page">
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="sidebar-item" onClick={() => navigate('/designs')}>
+        <div className="sidebar-item" onClick={() => navigate('/')}>
           <span className="sidebar-icon">📊</span>
           <span>Dashboard</span>
         </div>
-        <div className="sidebar-item" onClick={() => navigate('/designs')}>
+        <div className="sidebar-item" onClick={() => navigate('/')}>
           <span className="sidebar-icon">📁</span>
           <span>My Designs</span>
         </div>

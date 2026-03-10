@@ -1,0 +1,134 @@
+.benefits-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.benefits-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.benefits-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.benefits-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.benefits-subheading {
+  font-size: 1.125rem;
+  color: #4a5568;
+  text-align: center;
+  margin: 0 0 3rem 0;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Staggered fade-in animation for benefit cards */
+.benefit-card-wrapper {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.benefits-section.visible .benefit-card-wrapper {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Staggered animation delays */
+.benefits-section.visible .benefit-card-wrapper:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.benefits-section.visible .benefit-card-wrapper:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.benefits-section.visible .benefit-card-wrapper:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.benefits-section.visible .benefit-card-wrapper:nth-child(4) {
+  animation-delay: 0.45s;
+}
+
+.benefits-section.visible .benefit-card-wrapper:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+.benefits-section.visible .benefit-card-wrapper:nth-child(6) {
+  animation-delay: 0.75s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile layout: 1 column */
+@media (max-width: 768px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .benefits-heading {
+    font-size: 1.75rem;
+  }
+
+  .benefits-subheading {
+    font-size: 1rem;
+  }
+
+  .benefits-section {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Tablet layout: still 3 columns if space allows, otherwise 1 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .benefits-heading {
+    font-size: 2rem;
+  }
+
+  .benefits-section {
+    padding: 4rem 1.5rem;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .benefits-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .benefits-section.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .benefit-card-wrapper {
+    opacity: 1;
+    transform: none;
+  }
+
+  .benefits-section.visible .benefit-card-wrapper {
+    animation: none;
+  }
+}

@@ -34,6 +34,11 @@ vi.mock('./pages', () => ({
   ReviewsPage: () => <div>Reviews Page</div>,
 }));
 
+// Mock LandingPage
+vi.mock('./pages/LandingPage', () => ({
+  LandingPage: () => <div>Landing Page</div>,
+}));
+
 describe('App Component - Routing', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -46,19 +51,19 @@ describe('App Component - Routing', () => {
   });
 
   describe('Route Configuration', () => {
-    it('should redirect root path to /login', async () => {
+    it('should render landing page at root path', async () => {
       render(<App />);
 
       await waitFor(() => {
-        expect(screen.getByText('Login Page')).toBeInTheDocument();
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
 
-    it('should render login page for unauthenticated users', async () => {
+    it('should render landing page for unauthenticated users at root', async () => {
       render(<App />);
 
       await waitFor(() => {
-        expect(screen.getByText('Login Page')).toBeInTheDocument();
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
   });
@@ -71,19 +76,19 @@ describe('App Component - Routing', () => {
       render(<App />);
 
       await waitFor(() => {
-        // Should not redirect to login
-        expect(screen.queryByText('Login Page')).not.toBeInTheDocument();
+        // Landing page should still be accessible to authenticated users
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
 
-    it('should redirect unauthenticated users to login', async () => {
+    it('should show landing page for unauthenticated users', async () => {
       // Ensure no user is set
       store.dispatch(logout());
 
       render(<App />);
 
       await waitFor(() => {
-        expect(screen.getByText('Login Page')).toBeInTheDocument();
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
   });
@@ -113,7 +118,7 @@ describe('App Component - Routing', () => {
 
       await waitFor(() => {
         // App should render without errors, indicating ErrorBoundary is working
-        expect(screen.getByText('Login Page')).toBeInTheDocument();
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
 
@@ -143,8 +148,8 @@ describe('App Component - Routing', () => {
       const { unmount } = render(<App />);
 
       await waitFor(() => {
-        // Should not show login page
-        expect(screen.queryByText('Login Page')).not.toBeInTheDocument();
+        // Landing page should be visible
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
 
       unmount();
@@ -153,8 +158,8 @@ describe('App Component - Routing', () => {
       render(<App />);
 
       await waitFor(() => {
-        // Should still not show login page
-        expect(screen.queryByText('Login Page')).not.toBeInTheDocument();
+        // Landing page should still be visible
+        expect(screen.getByText('Landing Page')).toBeInTheDocument();
       });
     });
   });

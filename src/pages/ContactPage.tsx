@@ -35,7 +35,7 @@ export const ContactPage = () => {
   return (
     <div className="contact-page">
       <div className="contact-header">
-        <button onClick={() => navigate('/designs')} className="back-button">
+        <button onClick={() => navigate('/')} className="back-button">
           ← Back to Dashboard
         </button>
         <h1>Contact Us</h1>

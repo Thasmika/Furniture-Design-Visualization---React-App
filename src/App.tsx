@@ -4,10 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './store';
 import { initializeFirebase } from './services';
 import { initializeAuthListener } from './store/slices/authThunks';
-import { LoginPage, RegisterPage, EditorPage, DesignListPage, ContactPage } from './pages';
+import { LoginPage, RegisterPage, EditorPage, ContactPage } from './pages';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { LandingPage } from './pages/LandingPage';
+import { MyDesignsPage } from './pages/MyDesignsPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -94,14 +95,7 @@ function App() {
                   </PublicRoute>
                 }
               />
-              <Route
-                path="/designs"
-                element={
-                  <ProtectedRoute>
-                    <DesignListPage />
-                  </ProtectedRoute>
-                }
-              />
+
               <Route
                 path="/reviews"
                 element={
@@ -131,6 +125,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <EditorPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-designs"
+                element={
+                  <ProtectedRoute>
+                    <MyDesignsPage />
                   </ProtectedRoute>
                 }
               />

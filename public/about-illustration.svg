@@ -1,0 +1,38 @@
+<svg width="500" height="400" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="500" height="400" fill="#f0f4f8"/>
+  
+  <!-- Computer screen -->
+  <rect x="100" y="80" width="300" height="200" rx="8" fill="#2d3748"/>
+  <rect x="110" y="90" width="280" height="160" fill="#ffffff"/>
+  
+  <!-- 2D floor plan on left side of screen -->
+  <rect x="120" y="100" width="130" height="140" fill="#e2e8f0" stroke="#4a5568" stroke-width="2"/>
+  <rect x="130" y="110" width="40" height="30" fill="#38b2ac" opacity="0.6"/>
+  <rect x="180" y="110" width="30" height="30" fill="#38b2ac" opacity="0.6"/>
+  <rect x="130" y="150" width="50" height="40" fill="#38b2ac" opacity="0.6"/>
+  
+  <!-- 3D visualization on right side of screen -->
+  <g transform="translate(260, 100)">
+    <!-- 3D room perspective -->
+    <path d="M 0 20 L 60 0 L 120 20 L 120 120 L 60 140 L 0 120 Z" fill="#cbd5e0" stroke="#4a5568" stroke-width="2"/>
+    <path d="M 0 20 L 0 120 L 60 140 L 60 40 Z" fill="#a0aec0"/>
+    <path d="M 60 40 L 120 20 L 120 120 L 60 140 Z" fill="#e2e8f0"/>
+    <!-- 3D furniture -->
+    <rect x="20" y="60" width="30" height="40" fill="#38b2ac" opacity="0.8"/>
+    <rect x="70" y="50" width="25" height="35" fill="#38b2ac" opacity="0.8"/>
+  </g>
+  
+  <!-- Computer stand -->
+  <rect x="230" y="280" width="40" height="60" fill="#4a5568"/>
+  <ellipse cx="250" cy="340" rx="60" ry="10" fill="#2d3748"/>
+  
+  <!-- Person silhouette -->
+  <circle cx="350" cy="250" r="25" fill="#4a5568"/>
+  <path d="M 350 275 L 350 340 M 350 300 L 320 320 M 350 300 L 380 320 M 350 340 L 330 380 M 350 340 L 370 380" stroke="#4a5568" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="15" fill="#38b2ac" opacity="0.3"/>
+  <circle cx="450" cy="350" r="20" fill="#38b2ac" opacity="0.3"/>
+  <circle cx="430" cy="80" r="12" fill="#38b2ac" opacity="0.3"/>
+</svg>

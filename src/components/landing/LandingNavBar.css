@@ -1,0 +1,400 @@
+/* Landing Navbar Styles */
+
+.landing-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem 0;
+}
+
+.landing-navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Brand/Logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2c3e50;
+  padding: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.brand-button:hover {
+  opacity: 0.8;
+}
+
+.brand-button:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.brand-icon {
+  font-size: 1.5rem;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+}
+
+/* Desktop Navigation Links */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 0 1 auto;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #3498db;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #3498db;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* Desktop Auth Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+
+.user-email {
+  font-size: 0.8125rem;
+  color: #2c3e50;
+  font-weight: 500;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  background: white;
+  color: #2c3e50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+  background: #f8f9fa;
+  border-color: #3498db;
+  color: #3498db;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2);
+}
+
+.nav-button:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Mobile Hamburger Menu */
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-icon {
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.hamburger-menu:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.mobile-menu.open {
+  max-height: calc(100vh - 72px);
+  opacity: 1;
+}
+
+.mobile-menu-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  padding: 1rem;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  min-height: 44px;
+}
+
+.mobile-nav-link:hover {
+  background-color: #f8f9fa;
+}
+
+.mobile-nav-link:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: -2px;
+}
+
+.mobile-menu-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0.5rem 0;
+}
+
+.mobile-user-info {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-user-email {
+  font-size: 0.875rem;
+  color: #2c3e50;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.mobile-nav-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  background: white;
+  color: #2c3e50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-button:hover {
+  background: #f8f9fa;
+  border-color: #3498db;
+  color: #3498db;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2);
+}
+
+.mobile-nav-button:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: -2px;
+}
+
+/* Responsive Utilities */
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Mobile Styles (<768px) */
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .navbar-container {
+    padding: 0 1rem;
+  }
+
+  .brand-name {
+    font-size: 1.125rem;
+  }
+
+  .brand-icon {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet Styles (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+
+  .navbar-links {
+    gap: 1rem;
+  }
+
+  .navbar-actions {
+    gap: 0.5rem;
+  }
+
+  .nav-button {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .user-email {
+    max-width: 120px;
+  }
+}
+
+/* Large Desktop Styles (>1400px) */
+@media (min-width: 1400px) {
+  .navbar-actions {
+    gap: 1rem;
+  }
+
+  .nav-button {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .landing-navbar,
+  .nav-link,
+  .nav-button,
+  .mobile-menu,
+  .mobile-nav-link,
+  .mobile-nav-button {
+    transition: none;
+  }
+
+  .nav-link::after {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .landing-navbar.scrolled {
+    background-color: white;
+    border-bottom: 2px solid black;
+  }
+
+  .nav-link,
+  .brand-button,
+  .hamburger-icon {
+    color: black;
+  }
+
+  .nav-button-primary {
+    background: black;
+    color: white;
+  }
+
+  .nav-button-secondary {
+    border-color: black;
+    color: black;
+  }
+}

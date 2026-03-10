@@ -1,0 +1,83 @@
+.about-section {
+  padding: 80px 20px;
+  background-color: #f8f9fa;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.about-section.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-content h2 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 24px;
+  color: #1a1a1a;
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4a5568;
+  margin-bottom: 16px;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+.about-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-visual img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Tablet and desktop layout */
+@media (min-width: 768px) {
+  .about-section {
+    padding: 100px 40px;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  .about-section {
+    padding: 120px 40px;
+  }
+
+  .about-content p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .about-section {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -20,7 +20,7 @@ export const LoginPage = () => {
     try {
       await dispatch(authenticateUser(email, password));
       showSuccess('Login successful!');
-      navigate('/designs');
+      navigate('/');
     } catch (err) {
       showError(error || 'Login failed. Please try again.');
     }

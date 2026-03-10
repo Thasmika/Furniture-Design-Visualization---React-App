@@ -40,7 +40,7 @@ export const RegisterPage = () => {
     try {
       await dispatch(registerUser(email, password));
       showSuccess('Account created successfully!');
-      navigate('/designs');
+      navigate('/');
     } catch (err) {
       showError(error || 'Registration failed. Please try again.');
     }
