@@ -119,6 +119,14 @@ export const LandingNavBar = ({ isScrolled, isAuthenticated, userEmail }: Landin
               </button>
               <button
                 type="button"
+                onClick={() => handleNavigation('/my-designs')}
+                className="nav-button nav-button-secondary"
+                title="View your saved designs"
+              >
+                📁 My Designs
+              </button>
+              <button
+                type="button"
                 onClick={() => handleNavigation('/reviews')}
                 className="nav-button nav-button-secondary"
                 title="View reviews"
@@ -222,6 +230,13 @@ export const LandingNavBar = ({ isScrolled, isAuthenticated, userEmail }: Landin
                 className="mobile-nav-button mobile-nav-button-secondary"
               >
                 ➕ New Design
+              </button>
+              <button
+                type="button"
+                onClick={() => handleNavigation('/my-designs')}
+                className="mobile-nav-button mobile-nav-button-secondary"
+              >
+                📁 My Designs
               </button>
               <button
                 type="button"
