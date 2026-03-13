@@ -252,6 +252,13 @@ export const LandingNavBar = ({ isScrolled, isAuthenticated, userEmail }: Landin
               >
                 👤 Profile
               </button>
+              <button
+                type="button"
+                onClick={() => handleNavigation('/contact')}
+                className="mobile-nav-button mobile-nav-button-secondary"
+              >
+                📧 Contact
+              </button>
 
               <button
                 type="button"
