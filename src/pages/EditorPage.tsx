@@ -5,6 +5,7 @@ import { createDesign } from '../store/slices/designSlice';
 import { createDesign as createDesignModel } from '../models/Design';
 import { createRoom } from '../models/Room';
 import { AppHeader, AppLayout } from '../components';
+import { AppNavBar } from '../components/AppNavBar';
 import './EditorPage.css';
 
 export const EditorPage = () => {
@@ -34,6 +35,7 @@ export const EditorPage = () => {
 
   return (
     <div className="editor-page">
+      <AppNavBar />
       <AppHeader />
       <AppLayout />
     </div>

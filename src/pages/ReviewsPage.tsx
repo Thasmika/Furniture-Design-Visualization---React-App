@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../store';
+import { AppNavBar } from '../components/AppNavBar';
 import './ReviewsPage.css';
 
 interface Review {
@@ -107,26 +108,7 @@ export const ReviewsPage = () => {
 
   return (
     <div className="reviews-page">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-item" onClick={() => navigate('/')}>
-          <span className="sidebar-icon">📊</span>
-          <span>Dashboard</span>
-        </div>
-        <div className="sidebar-item" onClick={() => navigate('/')}>
-          <span className="sidebar-icon">📁</span>
-          <span>My Designs</span>
-        </div>
-        <div className="sidebar-item active">
-          <span className="sidebar-icon">⭐</span>
-          <span>Reviews</span>
-        </div>
-        <div className="sidebar-item" onClick={() => navigate('/profile')}>
-          <span className="sidebar-icon">👤</span>
-          <span>Profile</span>
-        </div>
-      </aside>
-
+      <AppNavBar />
       {/* Main Content */}
       <main className="main-content">
         {/* Header */}

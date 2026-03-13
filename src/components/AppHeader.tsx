@@ -105,16 +105,6 @@ export const AppHeader = () => {
     <>
       <header className="app-header">
         <div className="header-left">
-          <Tooltip content="Go to dashboard">
-            <button
-              type="button"
-              onClick={handleHome}
-              className="header-button home-button"
-            >
-              🏠 Home
-            </button>
-          </Tooltip>
-          <h1>🪑 Furniture Design Visualizer</h1>
         </div>
         
         <div className="header-center">
@@ -157,26 +147,9 @@ export const AppHeader = () => {
               📁 My Designs
             </button>
           </Tooltip>
-          {totalCost > 0 && (
-            <Tooltip content="Total cost of all furniture in your design">
-              <div className="total-cost-badge">
-                💰 Total: ${totalCost.toFixed(2)}
-              </div>
-            </Tooltip>
-          )}
         </div>
 
         <div className="header-right">
-          <span className="user-email">{user?.email}</span>
-          <Tooltip content="Sign out of your account">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="header-button logout-button"
-            >
-              Logout
-            </button>
-          </Tooltip>
         </div>
       </header>
 

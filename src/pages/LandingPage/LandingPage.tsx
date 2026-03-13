@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppState, AppDispatch } from '../../store';
 import { fetchStatisticsAsync, fetchTestimonialsAsync } from '../../store/slices/landingSlice';
 import {
-  LandingNavBar,
   HeroSection,
   FeaturesSection,
   AboutSection,
@@ -13,6 +12,7 @@ import {
   CTASection,
   Footer,
 } from '../../components/landing';
+import { AppNavBar } from '../../components/AppNavBar';
 import './LandingPage.css';
 
 /**
@@ -33,35 +33,17 @@ export const LandingPage = () => {
   const isAuthenticated = !!user;
   const userEmail = user?.email || null;
 
-  // Track scroll position for navbar styling
-  const [isScrolled, setIsScrolled] = useState(false);
-
   // Fetch data on mount
   useEffect(() => {
     dispatch(fetchStatisticsAsync());
     dispatch(fetchTestimonialsAsync());
   }, [dispatch]);
 
-  // Track scroll position for navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="landing-page">
       {/* Header with Navigation */}
       <header>
-        <LandingNavBar
-          isScrolled={isScrolled}
-          isAuthenticated={isAuthenticated}
-          userEmail={userEmail}
-        />
+        <AppNavBar />
       </header>
 
       {/* Main Content */}

@@ -12,7 +12,6 @@ export const Footer = ({ isAuthenticated }: FooterProps) => {
       <div className="footer-content">
         <div className="footer-section footer-brand">
           <div className="footer-logo">
-            <span className="footer-logo-icon" aria-hidden="true">🪑</span>
             <span className="footer-logo-text">FurniVision</span>
           </div>
           <p className="footer-tagline">

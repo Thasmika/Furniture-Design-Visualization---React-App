@@ -1,0 +1,132 @@
+.app-navbar {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Brand */
+.app-navbar-brand {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.app-navbar-brand:hover {
+  opacity: 0.8;
+}
+
+.app-brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Navigation Links */
+.app-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.app-nav-link {
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: #64748b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.app-nav-link:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+/* User Info */
+.app-navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.user-email-display {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .app-navbar-container {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .app-nav-link {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-navbar-container {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .app-navbar-links {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .app-navbar-user {
+    order: 2;
+  }
+
+  .app-nav-link {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .user-email-display {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-brand-name {
+    font-size: 1.25rem;
+  }
+
+  .app-navbar-user {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .user-email-display {
+    font-size: 0.8rem;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

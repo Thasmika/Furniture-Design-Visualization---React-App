@@ -12,6 +12,7 @@ import { createDesign as createDesignModel } from '../models/Design';
 import { createRoom } from '../models/Room';
 import { createSVGPlaceholder } from '../utils/thumbnailGenerator';
 import { useToast } from '../components/Toast';
+import { AppNavBar } from '../components/AppNavBar';
 import './MyDesignsPage.css';
 
 export const MyDesignsPage = () => {
@@ -120,9 +121,10 @@ export const MyDesignsPage = () => {
 
   return (
     <div className="my-designs-page">
+      <AppNavBar />
       <header className="my-designs-header">
         <div className="header-content">
-          <h1>🪑 My Designs</h1>
+          <h1>My Designs</h1>
           <div className="header-actions">
             <button type="button" onClick={handleNewDesign} className="btn-new-design">
               + New Design

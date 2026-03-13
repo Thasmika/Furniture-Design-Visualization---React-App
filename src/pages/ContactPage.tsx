@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { AppNavBar } from '../components/AppNavBar';
 import './ContactPage.css';
 
 export const ContactPage = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,10 +33,8 @@ export const ContactPage = () => {
 
   return (
     <div className="contact-page">
+      <AppNavBar />
       <div className="contact-header">
-        <button onClick={() => navigate('/')} className="back-button">
-          ← Back to Dashboard
-        </button>
         <h1>Contact Us</h1>
         <p>We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
       </div>
@@ -46,28 +43,24 @@ export const ContactPage = () => {
         <div className="contact-info">
           <h2>Get in Touch</h2>
           <div className="info-item">
-            <span className="icon">📧</span>
             <div>
               <h3>Email</h3>
               <p>support@furnituredesign.com</p>
             </div>
           </div>
           <div className="info-item">
-            <span className="icon">📞</span>
             <div>
               <h3>Phone</h3>
               <p>+1 (555) 123-4567</p>
             </div>
           </div>
           <div className="info-item">
-            <span className="icon">📍</span>
             <div>
               <h3>Address</h3>
               <p>123 Design Street<br />San Francisco, CA 94102</p>
             </div>
           </div>
           <div className="info-item">
-            <span className="icon">🕐</span>
             <div>
               <h3>Business Hours</h3>
               <p>Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM<br />Sunday: Closed</p>

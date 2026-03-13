@@ -1,51 +1,13 @@
 .profile-page {
-  display: flex;
   min-height: 100vh;
-  background: #f5f7fa;
-}
-
-/* Sidebar - reusing same styles */
-.profile-page .sidebar {
-  width: 200px;
-  background: white;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-}
-
-.profile-page .sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #64748b;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-.profile-page .sidebar-item:hover {
-  background: #f1f5f9;
-  color: #334155;
-}
-
-.profile-page .sidebar-item.active {
-  background: #1e293b;
-  color: white;
-  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
-}
-
-.profile-page .sidebar-icon {
-  font-size: 1.1rem;
+  background: linear-gradient(rgba(178, 190, 195, 0.85), rgba(178, 190, 195, 0.85)), 
+              url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1920&q=80') center/cover no-repeat fixed;
 }
 
 /* Main Content */
 .profile-page .main-content {
-  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
   overflow-y: auto;
 }
@@ -502,21 +464,6 @@
 }
 
 @media (max-width: 768px) {
-  .profile-page {
-    flex-direction: column;
-  }
-
-  .profile-page .sidebar {
-    width: 100%;
-    flex-direction: row;
-    padding: 1rem;
-    overflow-x: auto;
-  }
-
-  .profile-page .sidebar-item span:not(.sidebar-icon) {
-    display: none;
-  }
-
   .profile-page .main-content {
     padding: 1.5rem;
   }

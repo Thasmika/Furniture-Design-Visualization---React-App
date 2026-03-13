@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import type { RootState, AppDispatch } from '../store';
 import { logout } from '../store/slices/authThunks';
 import { useToast } from '../components/Toast';
+import { AppNavBar } from '../components/AppNavBar';
 import './ProfilePage.css';
 
 export const ProfilePage = () => {
@@ -50,26 +51,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="profile-page">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-item" onClick={() => navigate('/')}>
-          <span className="sidebar-icon">📊</span>
-          <span>Dashboard</span>
-        </div>
-        <div className="sidebar-item" onClick={() => navigate('/')}>
-          <span className="sidebar-icon">📁</span>
-          <span>My Designs</span>
-        </div>
-        <div className="sidebar-item" onClick={() => navigate('/reviews')}>
-          <span className="sidebar-icon">⭐</span>
-          <span>Reviews</span>
-        </div>
-        <div className="sidebar-item active">
-          <span className="sidebar-icon">👤</span>
-          <span>Profile</span>
-        </div>
-      </aside>
-
+      <AppNavBar />
       {/* Main Content */}
       <main className="main-content">
         {/* Header */}

@@ -57,7 +57,6 @@ export const LandingNavBar = ({ isScrolled, isAuthenticated, userEmail }: Landin
             className="brand-button"
             aria-label="FurniVision home"
           >
-            <span className="brand-icon">🪑</span>
             <span className="brand-name">FurniVision</span>
           </button>
         </div>
