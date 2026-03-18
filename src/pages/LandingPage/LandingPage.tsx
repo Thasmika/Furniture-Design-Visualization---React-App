@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppState, AppDispatch } from '../../store';
-import { fetchStatisticsAsync, fetchTestimonialsAsync } from '../../store/slices/landingSlice';
+import { fetchStatisticsAsync } from '../../store/slices/landingSlice';
 import {
   HeroSection,
   FeaturesSection,
   AboutSection,
   BenefitsSection,
   StatisticsSection,
-  TestimonialsSection,
+  FurnitureShowcaseSection,
   CTASection,
   Footer,
 } from '../../components/landing';
@@ -31,12 +31,10 @@ export const LandingPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: AppState) => state.auth);
   const isAuthenticated = !!user;
-  const userEmail = user?.email || null;
 
   // Fetch data on mount
   useEffect(() => {
     dispatch(fetchStatisticsAsync());
-    dispatch(fetchTestimonialsAsync());
   }, [dispatch]);
 
   return (
@@ -63,9 +61,9 @@ export const LandingPage = () => {
         {/* Statistics Section */}
         <StatisticsSection />
 
-        {/* Testimonials Section */}
-        <section id="testimonials">
-          <TestimonialsSection />
+        {/* Furniture Showcase Section */}
+        <section id="furniture">
+          <FurnitureShowcaseSection />
         </section>
 
         {/* CTA Section */}

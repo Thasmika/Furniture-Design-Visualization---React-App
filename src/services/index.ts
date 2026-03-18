@@ -26,3 +26,9 @@ export {
   discardCachedDesign,
 } from './recoveryService';
 export type { RecoveryData } from './recoveryService';
+export {
+  fetchFurnitureItems,
+  addFurnitureItem,
+  updateFurnitureItem,
+  deleteFurnitureItem,
+} from './furnitureService';

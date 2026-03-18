@@ -34,6 +34,8 @@ describe('Auth Thunks', () => {
       const mockUser = {
         uid: 'test-uid-123',
         email: 'test@example.com',
+        displayName: null,
+        role: 'user' as const,
       };
 
       vi.mocked(authService.registerUser).mockResolvedValue(mockUser);
@@ -68,6 +70,7 @@ describe('Auth Thunks', () => {
         uid: 'test-uid-456',
         email: 'user@example.com',
         displayName: 'Test User',
+        role: 'user' as const,
       };
 
       vi.mocked(authService.authenticateUser).mockResolvedValue(mockUser);
@@ -102,6 +105,8 @@ describe('Auth Thunks', () => {
       const mockUser = {
         uid: 'test-uid-789',
         email: 'logout@example.com',
+        displayName: null,
+        role: 'user' as const,
       };
 
       vi.mocked(authService.authenticateUser).mockResolvedValue(mockUser);
@@ -125,6 +130,8 @@ describe('Auth Thunks', () => {
       const mockUser = {
         uid: 'test-uid-999',
         email: 'faillogout@example.com',
+        displayName: null,
+        role: 'user' as const,
       };
 
       vi.mocked(authService.authenticateUser).mockResolvedValue(mockUser);
@@ -160,6 +167,8 @@ describe('Auth Thunks', () => {
       const mockUser = {
         uid: 'listener-uid',
         email: 'listener@example.com',
+        displayName: null,
+        role: 'user' as const,
       };
 
       capturedCallback?.(mockUser);

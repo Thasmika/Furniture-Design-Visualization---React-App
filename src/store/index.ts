@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import designReducer from './slices/designSlice';
 import uiReducer from './slices/uiSlice';
 import landingReducer from './slices/landingSlice';
+import furnitureReducer from './slices/furnitureSlice';
 import { historyMiddleware } from './middleware/historyMiddleware';
 import { cacheMiddleware } from './middleware/cacheMiddleware';
 import type { AppState } from './types';
@@ -13,6 +14,7 @@ export const store = configureStore({
     design: designReducer,
     ui: uiReducer,
     landing: landingReducer,
+    furniture: furnitureReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -40,6 +42,14 @@ export {
   logout,
   initializeAuthListener,
 } from './slices/authThunks';
+
+// Export furniture thunks
+export {
+  fetchFurnitureItems,
+  addFurnitureItem,
+  updateFurnitureItem,
+  deleteFurnitureItem,
+} from './slices/furnitureSlice';
 
 // Export history actions
 export { undo, redo, canUndo, canRedo } from './middleware/historyMiddleware';

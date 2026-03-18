@@ -8,6 +8,10 @@ export const AppNavBar = () => {
   const location = useLocation();
   const { user } = useSelector((state: RootState) => state.auth);
 
+  // Debug: Log user object to console
+  console.log('AppNavBar - Current user:', user);
+  console.log('AppNavBar - User role:', user?.role);
+
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -34,6 +38,15 @@ export const AppNavBar = () => {
           >
             My Designs
           </button>
+          {user?.role === 'admin' && (
+            <button
+              type="button"
+              onClick={() => navigate('/manage')}
+              className={`app-nav-link ${isActive('/manage') ? 'active' : ''}`}
+            >
+              Manage
+            </button>
+          )}
           <button
             type="button"
             onClick={() => navigate('/reviews')}

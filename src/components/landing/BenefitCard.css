@@ -17,9 +17,18 @@
 }
 
 .benefit-icon {
-  font-size: 3.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   margin-bottom: 1.25rem;
-  line-height: 1;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .benefit-title {
@@ -43,7 +52,8 @@
   }
 
   .benefit-icon {
-    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .benefit-title {

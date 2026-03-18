@@ -54,7 +54,7 @@ describe('selectors', () => {
 
   const mockState: AppState = {
     auth: {
-      user: { uid: 'user-1', email: 'test@example.com', displayName: 'Test User' },
+      user: { uid: 'user-1', email: 'test@example.com', displayName: 'Test User', role: 'user' },
       loading: false,
       error: null,
     },
@@ -71,6 +71,19 @@ describe('selectors', () => {
       showGrid: true,
       snapToGrid: false,
       sidebarOpen: true,
+    },
+    landing: {
+      statistics: {
+        data: null,
+        loading: false,
+        error: null,
+        lastFetched: null,
+      },
+      testimonials: {
+        data: [],
+        loading: false,
+        error: null,
+      },
     },
   };
 

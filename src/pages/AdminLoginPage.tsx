@@ -7,7 +7,7 @@ import { useToast } from '../components/Toast';
 import type { AppDispatch, RootState } from '../store';
 import './LoginPage.css';
 
-export const LoginPage = () => {
+export const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,10 +20,10 @@ export const LoginPage = () => {
     e.preventDefault();
     try {
       await dispatch(authenticateUser(email, password));
-      showSuccess('Login successful!');
+      showSuccess('Admin login successful!');
       navigate('/');
     } catch (err) {
-      showError(error || 'Login failed. Please try again.');
+      showError(error || 'Admin login failed. Please try again.');
     }
   };
 
@@ -31,11 +31,11 @@ export const LoginPage = () => {
     <div className="login-page">
       <div className="login-container">
         <h1>Furniture Design Visualizer</h1>
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Admin Email</label>
             <input
               id="email"
               type="email"
@@ -43,12 +43,12 @@ export const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              placeholder="Enter your email"
+              placeholder="Enter admin email"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Admin Password</label>
             <div className="password-input-wrapper">
               <input
                 id="password"
@@ -57,7 +57,7 @@ export const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
-                placeholder="Enter your password"
+                placeholder="Enter admin password"
               />
               <button
                 type="button"
@@ -76,18 +76,18 @@ export const LoginPage = () => {
             </div>
           )}
 
-          <button type="submit" disabled={loading} className="login-button">
-            {loading ? 'Logging in...' : 'User Login'}
+          <button type="submit" disabled={loading} className="login-button admin-login-button">
+            {loading ? 'Logging in...' : 'Admin Login'}
           </button>
         </form>
 
         <button 
           type="button"
-          onClick={() => navigate('/admin-login')}
-          className="admin-login-link-button"
+          onClick={() => navigate('/login')}
+          className="user-login-link-button"
           disabled={loading}
         >
-          Admin Login
+          Back to User Login
         </button>
 
         <div className="register-link">

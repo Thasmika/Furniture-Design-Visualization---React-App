@@ -23,6 +23,7 @@ describe('authSlice', () => {
     uid: 'test-uid',
     email: 'test@example.com',
     displayName: 'Test User',
+    role: 'user',
   };
 
   describe('login actions', () => {

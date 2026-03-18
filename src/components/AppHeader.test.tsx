@@ -39,7 +39,7 @@ function createTestStore(initialState = {}) {
 
 describe('AppHeader', () => {
   let store: ReturnType<typeof createTestStore>;
-  const mockUser = { uid: 'user-123', email: 'test@example.com' };
+  const mockUser = { uid: 'user-123', email: 'test@example.com', displayName: null, role: 'user' as const };
 
   beforeEach(() => {
     vi.clearAllMocks();

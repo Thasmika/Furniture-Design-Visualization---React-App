@@ -1,11 +1,13 @@
 import type { Design } from '../models/Design';
 import type { LandingPageState } from './slices/landingSlice';
+import type { FurnitureState } from './slices/furnitureSlice';
 
 // User type for authentication
 export interface User {
   uid: string;
   email: string | null;
   displayName: string | null;
+  role: 'user' | 'admin';
 }
 
 // Auth state
@@ -39,4 +41,5 @@ export interface AppState {
   design: DesignState;
   ui: UIState;
   landing: LandingPageState;
+  furniture: FurnitureState;
 }

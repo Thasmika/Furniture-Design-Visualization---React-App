@@ -4,13 +4,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './store';
 import { initializeFirebase } from './services';
 import { initializeAuthListener } from './store/slices/authThunks';
-import { LoginPage, RegisterPage, EditorPage, ContactPage } from './pages';
+import { LoginPage, RegisterPage, EditorPage, ContactPage, AdminLoginPage } from './pages';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { LandingPage } from './pages/LandingPage';
 import { MyDesignsPage } from './pages/MyDesignsPage';
+import { ManagePage } from './pages/ManagePage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
+import { AdminRoute } from './components/AdminRoute';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/Toast';
 import { RecoveryDialog } from './components/RecoveryDialog';
@@ -88,6 +90,14 @@ function App() {
                 }
               />
               <Route
+                path="/admin-login"
+                element={
+                  <PublicRoute>
+                    <AdminLoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
                 path="/register"
                 element={
                   <PublicRoute>
@@ -134,6 +144,14 @@ function App() {
                   <ProtectedRoute>
                     <MyDesignsPage />
                   </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/manage"
+                element={
+                  <AdminRoute>
+                    <ManagePage />
+                  </AdminRoute>
                 }
               />
             </Routes>

@@ -1,9 +1,11 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { addFurniture, updateFurniturePosition } from '../store/slices/designSlice';
 import { createFurniture, type FurnitureType } from '../models/FurniturePiece';
 import { getCurrentDesign } from '../store/selectors';
 import { Tooltip } from './Tooltip';
+import { fetchFurnitureItems } from '../services/furnitureService';
+import type { FurnitureItem } from '../models/FurnitureItem';
 import './FurnitureLibraryPanel.css';
 
 interface FurnitureVariant {
@@ -118,6 +120,63 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
   const activeView = useAppSelector((state) => state.ui.activeView);
   const [selectedCategory, setSelectedCategory] = useState<FurnitureType | null>(null);
   
+  // Firestore state
+  const [firestoreFurniture, setFirestoreFurniture] = useState<FurnitureItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Fetch furniture from Firestore on mount
+  useEffect(() => {
+    const loadFurniture = async () => {
+      try {
+        setLoading(true);
+        const items = await fetchFurnitureItems();
+        setFirestoreFurniture(items);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch furniture from Firestore:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load furniture from database');
+        // Fall back to static data - no need to set anything, FURNITURE_CATEGORIES is already available
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadFurniture();
+  }, []);
+  
+  // Merge Firestore items with static categories
+  const mergedCategories = useMemo(() => {
+    if (firestoreFurniture.length === 0) {
+      // No Firestore data, use static categories only
+      return FURNITURE_CATEGORIES;
+    }
+    
+    // Group Firestore items by type
+    const firestoreByType = firestoreFurniture.reduce((acc, item) => {
+      if (!acc[item.type]) {
+        acc[item.type] = [];
+      }
+      acc[item.type].push({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        color: item.color,
+        image: item.imageUrl,
+      });
+      return acc;
+    }, {} as Record<FurnitureType, FurnitureVariant[]>);
+    
+    // Merge with static categories
+    return FURNITURE_CATEGORIES.map(category => {
+      const firestoreVariants = firestoreByType[category.type] || [];
+      return {
+        ...category,
+        variants: [...category.variants, ...firestoreVariants],
+      };
+    });
+  }, [firestoreFurniture]);
+  
   const furnitureCount = useMemo(() => 
     currentDesign?.furniture.length || 0,
     [currentDesign?.furniture.length]
@@ -212,6 +271,14 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
   return (
     <div className="furniture-library-panel">
       <h3>Furniture Library</h3>
+      
+      {/* Non-blocking warning banner for Firestore fetch failure */}
+      {error && (
+        <div className="furniture-warning-banner" role="alert">
+          ⚠️ {error}. Showing default furniture.
+        </div>
+      )}
+      
       <div className="furniture-count">
         {furnitureCount} piece{furnitureCount !== 1 ? 's' : ''} in design
       </div>
@@ -238,7 +305,7 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
       {selectedCategory ? (
         <div className="furniture-variants">
           <div className="variants-header">
-            <h4>Select {FURNITURE_CATEGORIES.find(c => c.type === selectedCategory)?.label} Style</h4>
+            <h4>Select {mergedCategories.find(c => c.type === selectedCategory)?.label} Style</h4>
             <button
               type="button"
               className="back-button"
@@ -248,7 +315,7 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
             </button>
           </div>
           <div className="variant-list">
-            {FURNITURE_CATEGORIES.find(c => c.type === selectedCategory)?.variants.map((variant) => (
+            {mergedCategories.find(c => c.type === selectedCategory)?.variants.map((variant) => (
               <button
                 key={variant.id}
                 type="button"
@@ -271,7 +338,7 @@ export const FurnitureLibraryPanel: React.FC = React.memo(() => {
         </div>
       ) : (
         <div className="furniture-buttons">
-          {FURNITURE_CATEGORIES.map(({ type, label, icon }) => (
+          {mergedCategories.map(({ type, label, icon }) => (
             <Tooltip key={type} content={`Browse ${label} designs`}>
               <button
                 type="button"

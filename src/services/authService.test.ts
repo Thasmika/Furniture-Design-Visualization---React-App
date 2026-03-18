@@ -4,8 +4,10 @@ import {
   authenticateUser,
   logoutUser,
   setupAuthStateListener,
+  resolveUserRole,
 } from './authService';
 import * as firebaseAuth from 'firebase/auth';
+import * as firebaseFirestore from 'firebase/firestore';
 
 // Mock Firebase Auth
 vi.mock('firebase/auth', () => ({
@@ -16,14 +18,30 @@ vi.mock('firebase/auth', () => ({
   getAuth: vi.fn(),
 }));
 
+// Mock Firebase Firestore
+vi.mock('firebase/firestore', () => ({
+  doc: vi.fn(),
+  getDoc: vi.fn(),
+  getFirestore: vi.fn(),
+}));
+
 vi.mock('./firebase', () => ({
   getFirebaseAuth: vi.fn(() => ({ name: 'mock-auth' })),
+  getFirebaseFirestore: vi.fn(() => ({ name: 'mock-firestore' })),
   initializeFirebase: vi.fn(),
 }));
 
 describe('Authentication Service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    
+    // Default mock for Firestore - returns user role by default
+    const mockDocRef = { id: 'mock-doc-ref' };
+    vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+    vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+      exists: () => true,
+      data: () => ({ role: 'user' }),
+    } as any);
   });
 
   describe('registerUser', () => {
@@ -48,6 +66,7 @@ describe('Authentication Service', () => {
         uid: 'test-uid-123',
         email: 'test@example.com',
         displayName: null,
+        role: 'user',
       });
       expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
         { name: 'mock-auth' },
@@ -89,6 +108,7 @@ describe('Authentication Service', () => {
         uid: 'test-uid-456',
         email: 'user@example.com',
         displayName: 'Test User',
+        role: 'user',
       });
       expect(firebaseAuth.signInWithEmailAndPassword).toHaveBeenCalledWith(
         { name: 'mock-auth' },
@@ -124,7 +144,7 @@ describe('Authentication Service', () => {
   });
 
   describe('setupAuthStateListener', () => {
-    it('should call callback with user when auth state changes to logged in', () => {
+    it('should call callback with user when auth state changes to logged in', async () => {
       const mockCallback = vi.fn();
       const mockUser = {
         uid: 'test-uid-789',
@@ -135,8 +155,8 @@ describe('Authentication Service', () => {
       const mockUnsubscribe = vi.fn();
 
       vi.mocked(firebaseAuth.onAuthStateChanged).mockImplementation(
-        (auth: any, callback: any) => {
-          // Immediately call the callback with a user
+        (_auth: any, callback: any) => {
+          // Immediately call the callback with a user (async)
           callback(mockUser);
           return mockUnsubscribe;
         }
@@ -144,10 +164,14 @@ describe('Authentication Service', () => {
 
       const unsubscribe = setupAuthStateListener(mockCallback);
 
+      // Wait for async role resolution
+      await new Promise(resolve => setTimeout(resolve, 10));
+
       expect(mockCallback).toHaveBeenCalledWith({
         uid: 'test-uid-789',
         email: 'listener@example.com',
         displayName: 'Listener User',
+        role: 'user',
       });
       expect(typeof unsubscribe).toBe('function');
     });
@@ -157,7 +181,7 @@ describe('Authentication Service', () => {
       const mockUnsubscribe = vi.fn();
 
       vi.mocked(firebaseAuth.onAuthStateChanged).mockImplementation(
-        (auth: any, callback: any) => {
+        (_auth: any, callback: any) => {
           // Immediately call the callback with null
           callback(null);
           return mockUnsubscribe;
@@ -179,6 +203,97 @@ describe('Authentication Service', () => {
       const unsubscribe = setupAuthStateListener(mockCallback);
 
       expect(unsubscribe).toBe(mockUnsubscribe);
+    });
+  });
+
+  describe('resolveUserRole', () => {
+    it('should return admin role when Firestore document has admin role', async () => {
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+        exists: () => true,
+        data: () => ({ role: 'admin' }),
+      } as any);
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('admin');
+      expect(firebaseFirestore.doc).toHaveBeenCalledWith(
+        { name: 'mock-firestore' },
+        'users',
+        'test-uid'
+      );
+    });
+
+    it('should return user role when Firestore document has user role', async () => {
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+        exists: () => true,
+        data: () => ({ role: 'user' }),
+      } as any);
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('user');
+    });
+
+    it('should return default user role when Firestore document does not exist', async () => {
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+        exists: () => false,
+        data: () => null,
+      } as any);
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('user');
+    });
+
+    it('should return default user role when role field is missing', async () => {
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+        exists: () => true,
+        data: () => ({ email: 'test@example.com' }), // No role field
+      } as any);
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('user');
+    });
+
+    it('should return default user role when role field has invalid value', async () => {
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockResolvedValue({
+        exists: () => true,
+        data: () => ({ role: 'superadmin' }), // Invalid role
+      } as any);
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('user');
+    });
+
+    it('should return default user role and log error when Firestore read fails', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const mockDocRef = { id: 'mock-doc-ref' };
+      vi.mocked(firebaseFirestore.doc).mockReturnValue(mockDocRef as any);
+      vi.mocked(firebaseFirestore.getDoc).mockRejectedValue(
+        new Error('Firestore read failed')
+      );
+
+      const role = await resolveUserRole('test-uid');
+
+      expect(role).toBe('user');
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Error resolving user role:',
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
     });
   });
 });

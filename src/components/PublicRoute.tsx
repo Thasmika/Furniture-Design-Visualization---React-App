@@ -8,13 +8,13 @@ interface PublicRouteProps {
 }
 
 /**
- * Route guard that redirects authenticated users to dashboard page
+ * Route guard that redirects authenticated users to landing page
  */
 export const PublicRoute = ({ children }: PublicRouteProps) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   if (user) {
-    return <Navigate to="/designs" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

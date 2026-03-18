@@ -71,7 +71,7 @@ describe('App Component - Routing', () => {
   describe('Authentication Route Guards', () => {
     it('should allow authenticated users to access protected routes', async () => {
       // Set authenticated user
-      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User' }));
+      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User', role: 'user' }));
 
       render(<App />);
 
@@ -142,7 +142,7 @@ describe('App Component - Routing', () => {
   describe('Session Persistence (Requirement 8.6)', () => {
     it('should maintain authentication state across app restarts', async () => {
       // Set authenticated user
-      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User' }));
+      store.dispatch(authStateChanged({ uid: 'test-user', email: 'test@example.com', displayName: 'Test User', role: 'user' }));
 
       // First render - user is authenticated
       const { unmount } = render(<App />);

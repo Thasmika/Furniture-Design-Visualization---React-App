@@ -11,6 +11,7 @@ export { StatCard } from './StatCard';
 export { StarRating } from './StarRating';
 export { TestimonialsSection } from './TestimonialsSection';
 export { TestimonialCard } from './TestimonialCard';
+export { FurnitureShowcaseSection } from './FurnitureShowcaseSection';
 export { CTASection } from './CTASection';
 export { Footer } from './Footer';
 export { OptimizedImage } from './OptimizedImage';
